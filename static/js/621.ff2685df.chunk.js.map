@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/621.ff2685df.chunk.js","mappings":"gMAIA,EAJa,WACX,OAAOA,EAAAA,EAAAA,KAAA,MAAAC,SAAI,QACb,C","sources":["pages/Auth/Auth.jsx"],"sourcesContent":["const Auth = () => {\n  return <h1>Auth</h1>;\n};\n\nexport default Auth;\n"],"names":["_jsx","children"],"sourceRoot":""}
