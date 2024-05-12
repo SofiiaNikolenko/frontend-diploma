@@ -4,10 +4,10 @@ export const Header = styled.header`
   font-size: 14px;
   font-weight: 600;
   line-height: 17px;
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
   color: black;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08),

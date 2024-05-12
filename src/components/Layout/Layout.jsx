@@ -40,7 +40,7 @@ const Layout = () => {
           </Nav>
           <ListAuthentication>
             <ListAuthenticationItem>
-              <ListAuthenticationLink className="login" href="">
+              <ListAuthenticationLink href="">
                 Login
               </ListAuthenticationLink>
             </ListAuthenticationItem>

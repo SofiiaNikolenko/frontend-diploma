@@ -1,18 +1,13 @@
-import Hero from "../../components/HomeSection/Hero/Hero"
-import Places from "components/HomeSection/Places/Places";
 import {
   ContainerHome,
   Overlay,
   TitleHome,
   DescriptionHome,
-} from './Home.style';
+} from './Places.style';
 
-const Home = () => {
+const Places = () => {
   return (
-    <>
-      <Hero></Hero>
-      <Places></Places>
-    </>
+    <h1>Places</h1>
     // <ContainerHome>
     //   <Overlay />
     //   <TitleHome>Welcome to Our Car Rental Service</TitleHome>
@@ -25,4 +20,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Places;
