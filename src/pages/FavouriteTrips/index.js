@@ -1,1 +1,1 @@
-export { defout } from './FavouriteTrips';
+export { default } from './FavouriteTrips';

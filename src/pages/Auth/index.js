@@ -1,1 +1,1 @@
-export { defout } from './Auth';
+export { default } from './Auth';

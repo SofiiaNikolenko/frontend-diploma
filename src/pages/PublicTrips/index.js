@@ -1,1 +1,1 @@
-export { defout } from './PublicTrips';
+export { default } from './PublicTrips';

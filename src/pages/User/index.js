@@ -1,1 +1,1 @@
-export { defout } from './User';
+export { default } from './User';
