@@ -1,9 +1,3 @@
-import {
-  ContainerHome,
-  Overlay,
-  TitleHome,
-  DescriptionHome,
-} from './Places.style';
 
 const Places = () => {
   return (

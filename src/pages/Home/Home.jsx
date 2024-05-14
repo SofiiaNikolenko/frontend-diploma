@@ -1,11 +1,5 @@
 import Hero from "../../components/HomeSection/Hero/Hero"
 import Places from "components/HomeSection/Places/Places";
-import {
-  ContainerHome,
-  Overlay,
-  TitleHome,
-  DescriptionHome,
-} from './Home.style';
 
 const Home = () => {
   return (
