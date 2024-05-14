@@ -7,7 +7,8 @@ const Home = lazy(() => import('../pages/Home'));
 const PublicTrips = lazy(() => import('../pages/PublicTrips'));
 const FavoriteTrips = lazy(() => import('../pages/FavouriteTrips'));
 const User = lazy(() => import('../pages/User'));
-const Auth = lazy(() => import('../pages/Auth'));
+const Login = lazy(() => import('../pages/Login'));
+const Registration = lazy(() => import('../pages/Registration'));
 
 export const App = () => {
   return (
@@ -17,7 +18,8 @@ export const App = () => {
         <Route path="publictrips" element={<PublicTrips />} />
         <Route path="favouritetrips" element={<FavoriteTrips />} />
         <Route path="user" element={<User />} />
-        <Route path="auth" element={<Auth />} />
+        <Route path="login" element={<Login />} />
+        <Route path="registration" element={<Registration />} />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>

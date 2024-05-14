@@ -1,13 +1,28 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
+import axios from 'axios';
 import css from './Login.module.css';
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const onFinish = values => {
-    console.log('Received values of form: ', values);
+    axios
+      .post('http://localhost:3000/users/login', {
+        email: values.username,
+        password: values.password,
+      })
+      .then(response => {
+        console.log(response.data);
+        const { token } = response.data;
+        localStorage.setItem('token', token);
+        setIsAuthenticated(true);
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
   };
+
   return (
-    <div className={css.container}>
+    <>
       <Form
         name="normal_login"
         className={css.loginForm}
@@ -56,7 +71,7 @@ const Login = () => {
           {/* Or <a href=""> register now! </a> */}
         </Form.Item>
       </Form>
-    </div>
+    </>
   );
 };
 

@@ -1,20 +1,19 @@
 import { NavLink, Outlet } from 'react-router-dom';
+// import { useState } from 'react';
 import { Suspense } from 'react';
 import Loader from 'components/Loader/Loader';
 
-import {
-  Header,
-  Container,
-  Nav,
-  NavList,
-  NavListItem,
-  ListAuthentication,
-  ListAuthenticationItem,
-  ListAuthenticationLink,
-  Signup,
-} from './Layout.style';
+import { Header, Container, Nav, NavList, NavListItem } from './Layout.style';
 
 const Layout = () => {
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // // const history = useHistory();
+
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   setIsAuthenticated(false);
+  //   // history.push('/login');
+  // };
   return (
     <>
       <Header>
@@ -34,31 +33,15 @@ const Layout = () => {
                 <NavLink to="/user">User</NavLink>
               </NavListItem>
               <NavListItem>
-                <NavLink to="/auth">Auth</NavLink>
+                <NavLink to="/login">Login</NavLink>
+              </NavListItem>
+              <NavListItem>
+                <NavLink to="/registration">Registration</NavLink>
               </NavListItem>
             </NavList>
           </Nav>
-          <ListAuthentication>
-            <ListAuthenticationItem>
-              <ListAuthenticationLink href="">
-                Login
-              </ListAuthenticationLink>
-            </ListAuthenticationItem>
-            <ListAuthenticationItem>
-              <Signup href="">Sign up</Signup>
-            </ListAuthenticationItem>
-          </ListAuthentication>
         </Container>
       </Header>
-      {/* <header>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/publictrips">Public Trips</NavLink>
-          <NavLink to="/favouritetrips">Favorite Trips</NavLink>
-          <NavLink to="/user">User</NavLink>
-          <NavLink to="/auth">Auth</NavLink>
-        </nav>
-      </header> */}
       <main>
         <Suspense fallback={<Loader />}>
           <Outlet />
