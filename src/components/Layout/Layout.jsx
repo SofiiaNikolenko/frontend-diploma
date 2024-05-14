@@ -1,9 +1,16 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Suspense } from 'react';
+import { useEffect, useState, Suspense } from 'react';
+import axios from 'axios';
 import Loader from 'components/Loader/Loader';
 
-import { Header, Container, Nav, NavList, NavListItem } from './Layout.style';
+import {
+  Header,
+  Container,
+  Nav,
+  NavList,
+  NavListItem,
+  Button,
+} from './Layout.style';
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -17,10 +24,27 @@ const Layout = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    navigate('/login');
+    const token = localStorage.getItem('token');
+
+    axios
+      .post('http://localhost:3000/users/logout', null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(response => {
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+        navigate('/');
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+        navigate('/');
+      });
   };
+
   return (
     <>
       <Header>
@@ -36,22 +60,13 @@ const Layout = () => {
               <NavListItem>
                 <NavLink to="/favouritetrips">Favorite Trips</NavLink>
               </NavListItem>
-              {/* <NavListItem>
-                <NavLink to="/user">User</NavLink>
-              </NavListItem>
-              <NavListItem>
-                <NavLink to="/login">Login</NavLink>
-              </NavListItem>
-              <NavListItem>
-                <NavLink to="/registration">Registration</NavLink>
-              </NavListItem> */}
               {isAuthenticated && (
                 <>
                   <NavListItem>
                     <NavLink to="/user">User</NavLink>
                   </NavListItem>
                   <NavListItem>
-                    <button onClick={handleLogout}>Logout</button>
+                    <Button onClick={handleLogout}>Logout</Button>
                   </NavListItem>
                 </>
               )}

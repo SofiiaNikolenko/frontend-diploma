@@ -51,9 +51,9 @@ export const Login = styled.a`
   /* Добавьте здесь стили, если они отличаются от обычной ссылки */
 `;
 
-export const Signup = styled.a`
-  background-color: rgba(141, 211, 187, 1);
-  color: rgba(255, 255, 255, 1);
-  padding: 15px 25px;
-  border-radius: 8px;
+export const Button = styled.button`
+  /* background-color: rgba(141, 211, 187, 1); */
+  color: rgba(141, 211, 187, 1);
+  /* padding: 12px 25px;
+  border-radius: 8px; */
 `;

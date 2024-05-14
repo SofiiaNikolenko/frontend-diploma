@@ -1,6 +1,6 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import css from './Login.module.css';
@@ -17,7 +17,8 @@ const Login = () => {
         console.log(response.data);
         const { token } = response.data;
         localStorage.setItem('token', token);
-        navigate('/user');
+        navigate('/');
+        window.location.reload(); // костиль 
       })
       .catch(error => {
         console.error('There was an error!', error);
