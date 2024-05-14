@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/494.95316eba.chunk.js","mappings":"iMAIA,EAJoB,WAClB,OAAOA,EAAAA,EAAAA,KAAA,MAAAC,SAAI,eACb,C","sources":["pages/PublicTrips/PublicTrips.jsx"],"sourcesContent":["const PublicTrips = () => {\n  return <h1>PublicTrips</h1>;\n};\n\nexport default PublicTrips;\n"],"names":["_jsx","children"],"sourceRoot":""}

@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/829.af89aab9.chunk.js","mappings":"gMAIA,EAJuB,WACrB,OAAOA,EAAAA,EAAAA,KAAA,MAAAC,SAAI,kBACb,C","sources":["pages/FavouriteTrips/FavouriteTrips.jsx"],"sourcesContent":["const FavouriteTrips = () => {\n  return <h1>FavouriteTrips</h1>;\n};\n\nexport default FavouriteTrips;\n"],"names":["_jsx","children"],"sourceRoot":""}

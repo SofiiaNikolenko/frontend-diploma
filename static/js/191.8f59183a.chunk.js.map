@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/191.8f59183a.chunk.js","mappings":"gMAIA,EAJa,WACX,OAAOA,EAAAA,EAAAA,KAAA,MAAAC,SAAI,QACb,C","sources":["pages/User/User.jsx"],"sourcesContent":["const User = () => {\n  return <h1>User</h1>;\n};\n\nexport default User;\n"],"names":["_jsx","children"],"sourceRoot":""}
