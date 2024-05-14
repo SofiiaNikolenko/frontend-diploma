@@ -1,19 +1,26 @@
-import { NavLink, Outlet } from 'react-router-dom';
-// import { useState } from 'react';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Suspense } from 'react';
 import Loader from 'components/Loader/Loader';
 
 import { Header, Container, Nav, NavList, NavListItem } from './Layout.style';
 
 const Layout = () => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // // const history = useHistory();
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token');
-  //   setIsAuthenticated(false);
-  //   // history.push('/login');
-  // };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
   return (
     <>
       <Header>
@@ -29,7 +36,7 @@ const Layout = () => {
               <NavListItem>
                 <NavLink to="/favouritetrips">Favorite Trips</NavLink>
               </NavListItem>
-              <NavListItem>
+              {/* <NavListItem>
                 <NavLink to="/user">User</NavLink>
               </NavListItem>
               <NavListItem>
@@ -37,7 +44,27 @@ const Layout = () => {
               </NavListItem>
               <NavListItem>
                 <NavLink to="/registration">Registration</NavLink>
-              </NavListItem>
+              </NavListItem> */}
+              {isAuthenticated && (
+                <>
+                  <NavListItem>
+                    <NavLink to="/user">User</NavLink>
+                  </NavListItem>
+                  <NavListItem>
+                    <button onClick={handleLogout}>Logout</button>
+                  </NavListItem>
+                </>
+              )}
+              {!isAuthenticated && (
+                <>
+                  <NavListItem>
+                    <NavLink to="/login">Login</NavLink>
+                  </NavListItem>
+                  <NavListItem>
+                    <NavLink to="/registration">Registration</NavLink>
+                  </NavListItem>
+                </>
+              )}
             </NavList>
           </Nav>
         </Container>

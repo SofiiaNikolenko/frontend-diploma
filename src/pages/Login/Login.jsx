@@ -1,9 +1,12 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import css from './Login.module.css';
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = () => {
+  const navigate = useNavigate();
   const onFinish = values => {
     axios
       .post('http://localhost:3000/users/login', {
@@ -14,12 +17,20 @@ const Login = ({ setIsAuthenticated }) => {
         console.log(response.data);
         const { token } = response.data;
         localStorage.setItem('token', token);
-        setIsAuthenticated(true);
+        navigate('/user');
       })
       .catch(error => {
         console.error('There was an error!', error);
       });
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     // setIsAuthenticated(true);
+  //     navigate('/user');
+  //   }
+  // }, [navigate]);
 
   return (
     <>
