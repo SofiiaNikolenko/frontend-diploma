@@ -41,6 +41,9 @@ const Login = () => {
         initialValues={{
           remember: true,
         }}
+        style={{
+          maxWidth: 600,
+        }}
         onFinish={onFinish}
       >
         <Form.Item
@@ -48,13 +51,13 @@ const Login = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your Username!',
+              message: 'Please input your E-mail!',
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="E-mail"
           />
         </Form.Item>
         <Form.Item
