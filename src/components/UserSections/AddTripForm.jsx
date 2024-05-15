@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Test = () => {
+const AddTripForm = () => {
   const [data, setData] = useState({
     title: '',
     description: '',
@@ -84,6 +84,23 @@ const Test = () => {
       ...prevData,
       public: checked,
     }));
+  };
+
+  const handleCategoryPublicChange = (event, categoryIndex) => {
+    const { checked } = event.target;
+
+    setData(prevData => {
+      const newCategories = [...prevData.categories];
+      newCategories[categoryIndex] = {
+        ...newCategories[categoryIndex],
+        publicList: checked,
+      };
+
+      return {
+        ...prevData,
+        categories: newCategories,
+      };
+    });
   };
 
   const addCategory = () => {
@@ -204,6 +221,18 @@ const Test = () => {
               onChange={event => handleCategoryChange(event, categoryIndex)}
             />
 
+            {/* Category Public */}
+            <label htmlFor={`category-public-${categoryIndex}`}>Public</label>
+            <input
+              type="checkbox"
+              id={`category-public-${categoryIndex}`}
+              name="publicList"
+              checked={category.publicList}
+              onChange={event =>
+                handleCategoryPublicChange(event, categoryIndex)
+              }
+            />
+
             {/* Todo List */}
             <h3>Todo List</h3>
             {category.todoList.map((todo, todoIndex) => (
@@ -265,4 +294,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default AddTripForm;
