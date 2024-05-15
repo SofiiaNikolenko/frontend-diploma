@@ -1,10 +1,10 @@
 import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import css from "./Registration.module.css"
+import css from './Registration.module.css';
 
 const formItemLayout = {
   labelCol: {
@@ -42,6 +42,7 @@ const Registration = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const notify = () => toast.success('Перевір пошту та пройди варифікацію!!');
+
   const onFinish = values => {
     axios
       .post('http://localhost:3000/users/register', {
@@ -52,12 +53,13 @@ const Registration = () => {
         console.log(response.data);
         form.resetFields();
         notify();
-        // navigate('/login');
+        navigate('/login');
       })
       .catch(error => {
         console.error('There was an error!', error);
       });
   };
+
   return (
     <>
       <ToastContainer />
@@ -147,6 +149,7 @@ const Registration = () => {
           >
             Register
           </Button>
+          If you have an account already <Link to="/login"> log in now! </Link>
         </Form.Item>
       </Form>
     </>

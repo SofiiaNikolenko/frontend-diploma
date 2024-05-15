@@ -1,12 +1,12 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
-// import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import css from './Login.module.css';
 
 const Login = () => {
   const navigate = useNavigate();
+
   const onFinish = values => {
     axios
       .post('http://localhost:3000/users/login', {
@@ -18,20 +18,12 @@ const Login = () => {
         const { token } = response.data;
         localStorage.setItem('token', token);
         navigate('/');
-        window.location.reload(); // костиль 
+        window.location.reload();
       })
       .catch(error => {
         console.error('There was an error!', error);
       });
   };
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     // setIsAuthenticated(true);
-  //     navigate('/user');
-  //   }
-  // }, [navigate]);
 
   return (
     <>
@@ -83,7 +75,7 @@ const Login = () => {
           >
             Log in
           </Button>
-          {/* Or <a href=""> register now! </a> */}
+          Or <Link to="/registration"> register now! </Link>
         </Form.Item>
       </Form>
     </>
