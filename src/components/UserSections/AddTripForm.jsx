@@ -1,22 +1,43 @@
 import { useState, useEffect } from 'react';
 
 const AddTripForm = () => {
-  const [data, setData] = useState({
-    title: '',
-    description: '',
-    categories: [
-      {
-        nameCategory: '',
-        todoList: [
-          {
-            todo: '',
-          },
-        ],
-        publicList: false,
-      },
-    ],
-    public: false,
-  });
+  // const [data, setData] = useState({
+  //   title: '',
+  //   description: '',
+  //   categories: [
+  //     {
+  //       nameCategory: '',
+  //       todoList: [
+  //         {
+  //           todo: '',
+  //         },
+  //       ],
+  //       publicList: false,
+  //     },
+  //   ],
+  //   public: false,
+  //   photos: {},
+  // });
+
+   const initialState = {
+     title: '',
+     description: '',
+     categories: [
+       {
+         nameCategory: '',
+         todoList: [
+           {
+             todo: '',
+           },
+         ],
+         publicList: false,
+       },
+     ],
+     public: false,
+     photos: {},
+   };
+
+   const [data, setData] = useState(initialState);
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data'));
@@ -122,17 +143,25 @@ const AddTripForm = () => {
   };
 
   const addTodo = categoryIndex => {
-    setData(prevData => {
-      const newCategories = [...prevData.categories];
-      newCategories[categoryIndex].todoList.push({
-        todo: '',
-      });
+    // setData(prevData => {
+    //   const newCategories = [...prevData.categories];
+    //   newCategories[categoryIndex].todoList.push({
+    //     todo: '',
+    //   });
 
-      return {
-        ...prevData,
-        categories: newCategories,
-      };
+    //   return {
+    //     ...prevData,
+    //     categories: newCategories,
+    //   };
+    // });
+    const updatedCategories = [...data.categories];
+    updatedCategories[categoryIndex].todoList.push({
+      todo: '',
     });
+    setData(prevData => ({
+      ...prevData,
+      categories: updatedCategories,
+    }));
   };
 
   const deleteCategory = categoryIndex => {
@@ -148,16 +177,51 @@ const AddTripForm = () => {
   };
 
   const deleteTodo = (categoryIndex, todoIndex) => {
-    setData(prevData => {
-      const newCategories = [...prevData.categories];
-      newCategories[categoryIndex].todoList.splice(todoIndex, 1);
+    const updatedCategories = [...data.categories];
+    updatedCategories[categoryIndex].todoList.splice(todoIndex, 1);
+    setData(prevData => ({
+      ...prevData,
+      categories: updatedCategories,
+    }));
+    // setData(prevData => {
+    //   const newCategories = [...prevData.categories];
+    //   newCategories[categoryIndex].todoList.splice(todoIndex, 1);
 
-      return {
-        ...prevData,
-        categories: newCategories,
-      };
-    });
+    //   return {
+    //     ...prevData,
+    //     categories: newCategories,
+    //   };
+    // });
   };
+
+  // const handlePhotoChange = event => {
+  //   const files = event.target.files;
+  //   const selectedPhotos = Array.from(files);
+
+  //   const updatedPhotos = { ...data.photos };
+  //   selectedPhotos.forEach((photo, index) => {
+  //     updatedPhotos[index] = {
+  //       file: photo,
+  //       url: URL.createObjectURL(photo),
+  //       publicId: null,
+  //     };
+  //   });
+
+  //   setData(prevData => ({
+  //     ...prevData,
+  //     photos: updatedPhotos,
+  //   }));
+  // };
+
+  // const handleRemovePhoto = index => {
+  //   const updatedPhotos = { ...data.photos };
+  //   delete updatedPhotos[index];
+
+  //   setData(prevData => ({
+  //     ...prevData,
+  //     photos: updatedPhotos,
+  //   }));
+  // };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -182,6 +246,34 @@ const AddTripForm = () => {
         console.error('Error:', error);
         // Обробка помилки
       });
+    // setData(initialState);
+    // const formData = new FormData();
+    // const { photos, ...tripData } = data;
+
+    // Object.values(data.photos).forEach(photo => {
+    //   formData.append('photos', photo.file);
+    // });
+
+    // Object.entries(tripData).forEach(([key, value]) => {
+    //   formData.append(key, JSON.stringify(value));
+    // });
+
+    // fetch(url, {
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: formData,
+    // })
+    //   .then(response => response.json())
+    //   .then(responseData => {
+    //     console.log('Response:', responseData);
+    //     // Додаткова логіка після успішної відповіді з сервера
+    //   })
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //     // Обробка помилки
+    //   });
   };
 
   return (
@@ -286,6 +378,18 @@ const AddTripForm = () => {
           checked={data.public}
           onChange={handlePublicChange}
         />
+
+        {/* Photos */}
+        {/* <input type="file" multiple onChange={handlePhotoChange} />
+
+        {Object.entries(data.photos).map(([index, photo]) => (
+          <div key={index}>
+            <img src={photo.url} alt={`Photo ${index}`} />
+            <button type="button" onClick={() => handleRemovePhoto(index)}>
+              Remove Photo
+            </button>
+          </div>
+        ))} */}
 
         {/* Submit */}
         <button type="submit">Submit</button>
