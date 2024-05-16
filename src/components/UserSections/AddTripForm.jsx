@@ -15,29 +15,29 @@ const AddTripForm = () => {
   //       publicList: false,
   //     },
   //   ],
-  //   public: false,
+  //   isPublic: false,
   //   photos: {},
   // });
 
-   const initialState = {
-     title: '',
-     description: '',
-     categories: [
-       {
-         nameCategory: '',
-         todoList: [
-           {
-             todo: '',
-           },
-         ],
-         publicList: false,
-       },
-     ],
-     public: false,
-     photos: {},
-   };
+  const initialState = {
+    title: '',
+    description: '',
+    categories: [
+      {
+        nameCategory: '',
+        todoList: [
+          {
+            todo: '',
+          },
+        ],
+        publicList: false,
+      },
+    ],
+    isPublic: false,
+    // photos: {},
+  };
 
-   const [data, setData] = useState(initialState);
+  const [data, setData] = useState(initialState);
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data'));
@@ -103,7 +103,7 @@ const AddTripForm = () => {
 
     setData(prevData => ({
       ...prevData,
-      public: checked,
+      isPublic: checked,
     }));
   };
 
@@ -240,6 +240,8 @@ const AddTripForm = () => {
       .then(response => response.json())
       .then(responseData => {
         console.log('Response:', responseData);
+        setData(initialState);
+        localStorage.removeItem('data');
         // Додаткова логіка після успішної відповіді з сервера
       })
       .catch(error => {
@@ -370,12 +372,12 @@ const AddTripForm = () => {
         </button>
 
         {/* Public */}
-        <label htmlFor="public">Public</label>
+        <label htmlFor="isPublic">Public</label>
         <input
           type="checkbox"
-          id="public"
-          name="public"
-          checked={data.public}
+          id="isPublic"
+          name="isPublic"
+          checked={data.isPublic}
           onChange={handlePublicChange}
         />
 
