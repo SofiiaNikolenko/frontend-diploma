@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "@uploadcare/blocks": "0.40.0",
+    "@uploadcare/react-widget": "^2.4.5",
     "antd": "^5.17.0",
     "axios": "^1.6.8",
     "react": "^18.1.0",
