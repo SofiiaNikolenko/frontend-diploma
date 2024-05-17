@@ -34,7 +34,6 @@ const AddPhotos = ({ onCdnUrlsChange }) => {
 
   useEffect(() => {
     onCdnUrlsChange(cdnUrls);
-    console.log(cdnUrls);
   }, [cdnUrls]);
 
   return (
@@ -57,7 +56,6 @@ const AddPhotos = ({ onCdnUrlsChange }) => {
 };
 
 export default AddPhotos;
-
 
 // import React, { useEffect, useRef, useState } from 'react';
 // import * as LR from '@uploadcare/blocks';
@@ -105,7 +103,4 @@ export default AddPhotos;
 //   );
 // };
 
-
 // export default UploadComponent;
-
-

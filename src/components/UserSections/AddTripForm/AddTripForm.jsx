@@ -23,8 +23,6 @@ const AddTripForm = () => {
   const [data, setData] = useState(initialState);
   const [cdnUrls, setCdnUrls] = useState([]);
 
-  // console.log(cdnUrls);
-
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data'));
 
@@ -161,7 +159,7 @@ const AddTripForm = () => {
   };
 
   const handleCdnUrlsChange = urls => {
-    setCdnUrls(urls); // Оновіть cdnUrls, коли вони змінюються у AddPhotos
+    setCdnUrls(urls);
   };
 
   const handleSubmit = event => {
@@ -194,8 +192,6 @@ const AddTripForm = () => {
         console.error('Error:', error);
       });
   };
-
-  console.log(cdnUrls);
 
   return (
     <>
