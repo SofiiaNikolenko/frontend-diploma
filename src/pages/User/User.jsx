@@ -1,14 +1,12 @@
-import AddTripForm from '../../components/UserSections/AddTripForm';
-import Test from '../../components/UserSections/Test/Test';
-import UploadComponent from '../../components/UserSections/Test/TestPhoto';
+import AddTripForm from '../../components/UserSections/AddTripForm/AddTripForm';
+// import UploadComponent from '../../components/UserSections/AddTripForm/AddPhotos/TestPhoto';
 
 const User = () => {
   return (
     <>
       <h1>User</h1>
-      <UploadComponent></UploadComponent>
-      {/* <Test></Test> */}
-      {/* <AddTripForm></AddTripForm> */}
+      {/* <UploadComponent></UploadComponent> */}
+      <AddTripForm></AddTripForm>
     </>
   );
 };

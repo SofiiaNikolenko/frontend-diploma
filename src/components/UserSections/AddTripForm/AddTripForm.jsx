@@ -1,24 +1,7 @@
 import { useState, useEffect } from 'react';
+import AddPhotos from './AddPhotos/AddPhotos';
 
 const AddTripForm = () => {
-  // const [data, setData] = useState({
-  //   title: '',
-  //   description: '',
-  //   categories: [
-  //     {
-  //       nameCategory: '',
-  //       todoList: [
-  //         {
-  //           todo: '',
-  //         },
-  //       ],
-  //       publicList: false,
-  //     },
-  //   ],
-  //   isPublic: false,
-  //   photos: {},
-  // });
-
   const initialState = {
     title: '',
     description: '',
@@ -34,10 +17,13 @@ const AddTripForm = () => {
       },
     ],
     isPublic: false,
-    // photos: {},
+    photos: [],
   };
 
   const [data, setData] = useState(initialState);
+  const [cdnUrls, setCdnUrls] = useState([]);
+
+  // console.log(cdnUrls);
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data'));
@@ -143,17 +129,6 @@ const AddTripForm = () => {
   };
 
   const addTodo = categoryIndex => {
-    // setData(prevData => {
-    //   const newCategories = [...prevData.categories];
-    //   newCategories[categoryIndex].todoList.push({
-    //     todo: '',
-    //   });
-
-    //   return {
-    //     ...prevData,
-    //     categories: newCategories,
-    //   };
-    // });
     const updatedCategories = [...data.categories];
     updatedCategories[categoryIndex].todoList.push({
       todo: '',
@@ -183,45 +158,11 @@ const AddTripForm = () => {
       ...prevData,
       categories: updatedCategories,
     }));
-    // setData(prevData => {
-    //   const newCategories = [...prevData.categories];
-    //   newCategories[categoryIndex].todoList.splice(todoIndex, 1);
-
-    //   return {
-    //     ...prevData,
-    //     categories: newCategories,
-    //   };
-    // });
   };
 
-  // const handlePhotoChange = event => {
-  //   const files = event.target.files;
-  //   const selectedPhotos = Array.from(files);
-
-  //   const updatedPhotos = { ...data.photos };
-  //   selectedPhotos.forEach((photo, index) => {
-  //     updatedPhotos[index] = {
-  //       file: photo,
-  //       url: URL.createObjectURL(photo),
-  //       publicId: null,
-  //     };
-  //   });
-
-  //   setData(prevData => ({
-  //     ...prevData,
-  //     photos: updatedPhotos,
-  //   }));
-  // };
-
-  // const handleRemovePhoto = index => {
-  //   const updatedPhotos = { ...data.photos };
-  //   delete updatedPhotos[index];
-
-  //   setData(prevData => ({
-  //     ...prevData,
-  //     photos: updatedPhotos,
-  //   }));
-  // };
+  const handleCdnUrlsChange = urls => {
+    setCdnUrls(urls); // Оновіть cdnUrls, коли вони змінюються у AddPhotos
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -229,54 +170,32 @@ const AddTripForm = () => {
     const token = localStorage.getItem('token');
     const url = 'http://localhost:3000/api/trips';
 
+    const updatedData = {
+      ...data,
+      photos: cdnUrls,
+    };
+
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(updatedData),
     })
       .then(response => response.json())
       .then(responseData => {
         console.log('Response:', responseData);
         setData(initialState);
         localStorage.removeItem('data');
-        // Додаткова логіка після успішної відповіді з сервера
+        setCdnUrls([]);
       })
       .catch(error => {
         console.error('Error:', error);
-        // Обробка помилки
       });
-    // setData(initialState);
-    // const formData = new FormData();
-    // const { photos, ...tripData } = data;
-
-    // Object.values(data.photos).forEach(photo => {
-    //   formData.append('photos', photo.file);
-    // });
-
-    // Object.entries(tripData).forEach(([key, value]) => {
-    //   formData.append(key, JSON.stringify(value));
-    // });
-
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: formData,
-    // })
-    //   .then(response => response.json())
-    //   .then(responseData => {
-    //     console.log('Response:', responseData);
-    //     // Додаткова логіка після успішної відповіді з сервера
-    //   })
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //     // Обробка помилки
-    //   });
   };
+
+  console.log(cdnUrls);
 
   return (
     <>
@@ -381,17 +300,7 @@ const AddTripForm = () => {
           onChange={handlePublicChange}
         />
 
-        {/* Photos */}
-        {/* <input type="file" multiple onChange={handlePhotoChange} />
-
-        {Object.entries(data.photos).map(([index, photo]) => (
-          <div key={index}>
-            <img src={photo.url} alt={`Photo ${index}`} />
-            <button type="button" onClick={() => handleRemovePhoto(index)}>
-              Remove Photo
-            </button>
-          </div>
-        ))} */}
+        <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
 
         {/* Submit */}
         <button type="submit">Submit</button>
