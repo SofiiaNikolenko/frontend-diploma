@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 import AddPhotos from './AddPhotos/AddPhotos';
 
+// import {
+//   FormWrapper,
+//   FormTitle,
+//   FormElement,
+//   Label,
+//   Input,
+//   Checkbox,
+//   Button,
+//   CategoryContainer,
+//   TodoContainer,
+//   TodoInput,
+//   SmallButton,
+// } from './AddTripForm.style';
+
 const AddTripForm = () => {
   const initialState = {
     title: '',
@@ -187,6 +201,7 @@ const AddTripForm = () => {
         setData(initialState);
         localStorage.removeItem('data');
         setCdnUrls([]);
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error:', error);
@@ -275,7 +290,10 @@ const AddTripForm = () => {
             </button>
 
             {/* Delete Category */}
-            <button type="button" onClick={() => deleteCategory(categoryIndex)}>
+            <button
+              type="button"
+              onClick={() => deleteCategory(categoryIndex)}
+            >
               Delete Category
             </button>
           </div>

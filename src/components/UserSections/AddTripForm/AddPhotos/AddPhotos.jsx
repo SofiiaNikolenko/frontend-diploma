@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import * as LR from '@uploadcare/blocks';
 import '@uploadcare/blocks/web/lr-file-uploader-regular.min.css';
@@ -19,10 +20,23 @@ const AddPhotos = ({ onCdnUrlsChange }) => {
       );
       setFiles(newFiles);
       setCdnUrls(prevCdnUrls => {
-        const newUrls = newFiles.map(file => file.cdnUrl);
-        const uniqueUrls = Array.from(new Set([...prevCdnUrls, ...newUrls]));
+        const newUrls = newFiles.map(file => ({
+          cdnUrl: file.cdnUrl,
+          uuid: file.uuid,
+        }));
+        const uniqueUrls = [
+          ...prevCdnUrls,
+          ...newUrls.filter(
+            newUrl => !prevCdnUrls.some(url => url.cdnUrl === newUrl.cdnUrl)
+          ),
+        ];
         return uniqueUrls;
       });
+      // setCdnUrls(prevCdnUrls => {
+      //   const newUrls = newFiles.map(file => file.cdnUrl);
+      //   const uniqueUrls = Array.from(new Set([...prevCdnUrls, ...newUrls]));
+      //   return uniqueUrls;
+      // });
     };
 
     ctxProvider.addEventListener('change', handleChangeEvent);

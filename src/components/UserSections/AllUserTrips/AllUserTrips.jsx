@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from 'react';
 
 const AllUserTrips = () => {
@@ -43,7 +44,7 @@ const AllUserTrips = () => {
                 <ul>
                   {trip.photos.map((photo, index) => (
                     <li key={index}>
-                      <img src={photo} alt={`Photo ${index + 1}`} />
+                      <img src={photo.cdnUrl} alt={`Photo ${index + 1}`} />
                     </li>
                   ))}
                 </ul>
