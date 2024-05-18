@@ -1,5 +1,6 @@
 import AddTripForm from '../../components/UserSections/AddTripForm/AddTripForm';
-import AllUserTrips from '../../components/UserSections/AllUserTrips/AllUserTrips'
+import AllUserTrips from '../../components/UserSections/AllUserTrips/AllUserTrips';
+import UpdateTrip from '../../components/UserSections/UpdateTrip/UpdateTrip';
 
 const User = () => {
   return (
@@ -8,6 +9,8 @@ const User = () => {
       <AddTripForm></AddTripForm>
       <br />
       <AllUserTrips></AllUserTrips>
+      <br />
+      <UpdateTrip></UpdateTrip>
     </>
   );
 };
