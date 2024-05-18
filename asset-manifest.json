@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/frontend-diploma/static/css/main.c9695708.css",
-    "main.js": "/frontend-diploma/static/js/main.95bbaea7.js",
+    "main.js": "/frontend-diploma/static/js/main.9040f211.js",
     "static/js/554.42ee7129.chunk.js": "/frontend-diploma/static/js/554.42ee7129.chunk.js",
     "static/js/911.4acd089b.chunk.js": "/frontend-diploma/static/js/911.4acd089b.chunk.js",
     "static/js/638.f4dca054.chunk.js": "/frontend-diploma/static/js/638.f4dca054.chunk.js",
-    "static/js/127.f0fd9499.chunk.js": "/frontend-diploma/static/js/127.f0fd9499.chunk.js",
+    "static/js/542.b88d2351.chunk.js": "/frontend-diploma/static/js/542.b88d2351.chunk.js",
     "static/css/4.11e35d64.chunk.css": "/frontend-diploma/static/css/4.11e35d64.chunk.css",
     "static/js/4.cf924480.chunk.js": "/frontend-diploma/static/js/4.cf924480.chunk.js",
     "static/css/355.f2718439.chunk.css": "/frontend-diploma/static/css/355.f2718439.chunk.css",
@@ -16,11 +16,11 @@
     "static/media/Hero-img.png": "/frontend-diploma/static/media/Hero-img.c39775a826ec767b0bbc.png",
     "index.html": "/frontend-diploma/index.html",
     "main.c9695708.css.map": "/frontend-diploma/static/css/main.c9695708.css.map",
-    "main.95bbaea7.js.map": "/frontend-diploma/static/js/main.95bbaea7.js.map",
+    "main.9040f211.js.map": "/frontend-diploma/static/js/main.9040f211.js.map",
     "554.42ee7129.chunk.js.map": "/frontend-diploma/static/js/554.42ee7129.chunk.js.map",
     "911.4acd089b.chunk.js.map": "/frontend-diploma/static/js/911.4acd089b.chunk.js.map",
     "638.f4dca054.chunk.js.map": "/frontend-diploma/static/js/638.f4dca054.chunk.js.map",
-    "127.f0fd9499.chunk.js.map": "/frontend-diploma/static/js/127.f0fd9499.chunk.js.map",
+    "542.b88d2351.chunk.js.map": "/frontend-diploma/static/js/542.b88d2351.chunk.js.map",
     "4.11e35d64.chunk.css.map": "/frontend-diploma/static/css/4.11e35d64.chunk.css.map",
     "4.cf924480.chunk.js.map": "/frontend-diploma/static/js/4.cf924480.chunk.js.map",
     "355.f2718439.chunk.css.map": "/frontend-diploma/static/css/355.f2718439.chunk.css.map",
@@ -31,6 +31,6 @@
   },
   "entrypoints": [
     "static/css/main.c9695708.css",
-    "static/js/main.95bbaea7.js"
+    "static/js/main.9040f211.js"
   ]
 }
