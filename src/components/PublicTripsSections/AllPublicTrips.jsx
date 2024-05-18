@@ -23,9 +23,7 @@ const AllPublicTrips = () => {
 
   const handleLike = async tripId => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3000/api/trips/${tripId}/likes`
-      );
+      await axios.patch(`http://localhost:3000/api/trips/${tripId}/likes`);
     } catch (error) {
       console.error('Error liking trip:', error);
     }

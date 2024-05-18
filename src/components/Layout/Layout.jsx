@@ -58,7 +58,7 @@ const Layout = () => {
                 <NavLink to="/publictrips">Public Trips</NavLink>
               </NavListItem>
               <NavListItem>
-                <NavLink to="/favouritetrips">Favorite Trips</NavLink>
+                <NavLink to="/populartrips">Popular Trips</NavLink>
               </NavListItem>
               {isAuthenticated && (
                 <>
