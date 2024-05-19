@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import {
   deleteFile,
+  deleteFiles,
   UploadcareSimpleAuthSchema,
 } from '@uploadcare/rest-client';
 
@@ -31,11 +32,38 @@ const UpdateTrip = () => {
   const [trips, setTrips] = useState([]);
   const [selectedTripId, setSelectedTripId] = useState(null);
   const [isTripSelected, setIsTripSelected] = useState(false);
+  const [uploadcareSimpleAuthSchema, setUploadcareSimpleAuthSchema] =
+    useState(null);
 
-  const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
-    publicKey: "274c6cf9681b13936265",
-    secretKey: "9cfba5a3ce13072e7ac2",
-  });
+  // const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
+  //   publicKey: "274c6cf9681b13936265",
+  //   secretKey: "9cfba5a3ce13072e7ac2",
+  // });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const url = 'http://localhost:3000/api/trips/keys';
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setUploadcareSimpleAuthSchema(
+          new UploadcareSimpleAuthSchema({
+            publicKey: data.publicKey,
+            secretKey: data.secretKey,
+          })
+        );
+      })
+      .catch(error => {
+        console.error('Error fetching keys:', error);
+      });
+  }, []);
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data'));
@@ -301,6 +329,50 @@ const UpdateTrip = () => {
     setIsTripSelected(true);
   };
 
+  const handleDeleteTrip = () => {
+    const token = localStorage.getItem('token');
+    const url = `http://localhost:3000/api/trips/${selectedTripId}`;
+
+    const photoUUIDs = data.photos.map(photo => photo.uuid);
+
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Trip deleted:', responseData);
+        setData(initialState);
+        localStorage.removeItem('data');
+        setCdnUrls([]);
+        setIsTripSelected(false);
+        setTrips(trips.filter(trip => trip._id !== selectedTripId));
+      })
+      .catch(error => {
+        console.error('Error deleting trip:', error);
+      });
+
+    if (photoUUIDs.length > 0) {
+      deleteFiles(
+        { uuids: photoUUIDs },
+        { authSchema: uploadcareSimpleAuthSchema }
+      )
+        .then(() => {
+          console.log(
+            `Photos successfully deleted from Uploadcare: ${photoUUIDs.join(
+              ', '
+            )}`
+          );
+        })
+        .catch(error => {
+          console.error('Error deleting photos from Uploadcare:', error);
+        });
+    }
+  };
+
   return (
     <>
       <h1>Form</h1>
@@ -315,123 +387,136 @@ const UpdateTrip = () => {
       </ul>
 
       {isTripSelected && (
-        <form onSubmit={handleSubmit}>
-          {/* Title */}
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={data.title}
-            onChange={handleChange}
-          />
+        <>
+          <form onSubmit={handleSubmit}>
+            {/* Title */}
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={data.title}
+              onChange={handleChange}
+            />
 
-          {/* Description */}
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={data.description}
-            onChange={handleChange}
-          />
+            {/* Description */}
+            <label htmlFor="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value={data.description}
+              onChange={handleChange}
+            />
 
-          {/* Categories */}
-          <h2>Categories</h2>
-          {data.categories.map((category, categoryIndex) => (
-            <div key={categoryIndex}>
-              <label htmlFor={`category-${categoryIndex}`}>Category Name</label>
-              <input
-                type="text"
-                id={`category-${categoryIndex}`}
-                name="nameCategory"
-                value={category.nameCategory}
-                onChange={event => handleCategoryChange(event, categoryIndex)}
-              />
+            {/* Categories */}
+            <h2>Categories</h2>
+            {data.categories.map((category, categoryIndex) => (
+              <div key={categoryIndex}>
+                <label htmlFor={`category-${categoryIndex}`}>
+                  Category Name
+                </label>
+                <input
+                  type="text"
+                  id={`category-${categoryIndex}`}
+                  name="nameCategory"
+                  value={category.nameCategory}
+                  onChange={event => handleCategoryChange(event, categoryIndex)}
+                />
 
-              {/* Category Public */}
-              <label htmlFor={`category-public-${categoryIndex}`}>Public</label>
-              <input
-                type="checkbox"
-                id={`category-public-${categoryIndex}`}
-                name="publicList"
-                checked={category.publicList}
-                onChange={event =>
-                  handleCategoryPublicChange(event, categoryIndex)
-                }
-              />
+                {/* Category Public */}
+                <label htmlFor={`category-public-${categoryIndex}`}>
+                  Public
+                </label>
+                <input
+                  type="checkbox"
+                  id={`category-public-${categoryIndex}`}
+                  name="publicList"
+                  checked={category.publicList}
+                  onChange={event =>
+                    handleCategoryPublicChange(event, categoryIndex)
+                  }
+                />
 
-              {/* Todo List */}
-              <h3>Todo List</h3>
-              {category.todoList.map((todo, todoIndex) => (
-                <div key={todoIndex}>
-                  <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
-                    Todo
-                  </label>
-                  <input
-                    type="text"
-                    id={`todo-${categoryIndex}-${todoIndex}`}
-                    name="todo"
-                    value={todo.todo}
-                    onChange={event =>
-                      handleTodoChange(event, categoryIndex, todoIndex)
-                    }
-                  />
+                {/* Todo List */}
+                <h3>Todo List</h3>
+                {category.todoList.map((todo, todoIndex) => (
+                  <div key={todoIndex}>
+                    <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
+                      Todo
+                    </label>
+                    <input
+                      type="text"
+                      id={`todo-${categoryIndex}-${todoIndex}`}
+                      name="todo"
+                      value={todo.todo}
+                      onChange={event =>
+                        handleTodoChange(event, categoryIndex, todoIndex)
+                      }
+                    />
 
-                  {/* Delete Todo */}
-                  <button
-                    type="button"
-                    onClick={() => deleteTodo(categoryIndex, todoIndex)}
-                  >
-                    Delete Todo
-                  </button>
-                </div>
-              ))}
+                    {/* Delete Todo */}
+                    <button
+                      type="button"
+                      onClick={() => deleteTodo(categoryIndex, todoIndex)}
+                    >
+                      Delete Todo
+                    </button>
+                  </div>
+                ))}
 
-              {/* Add Todo */}
-              <button type="button" onClick={() => addTodo(categoryIndex)}>
-                Add Todo
-              </button>
+                {/* Add Todo */}
+                <button type="button" onClick={() => addTodo(categoryIndex)}>
+                  Add Todo
+                </button>
 
-              {/* Delete Category */}
-              <button
-                type="button"
-                onClick={() => deleteCategory(categoryIndex)}
-              >
-                Delete Category
-              </button>
-            </div>
-          ))}
-
-          {/* Add Category */}
-          <button type="button" onClick={addCategory}>
-            Add Category
-          </button>
-
-          {/* Public */}
-          <label htmlFor="isPublic">Public</label>
-          <input
-            type="checkbox"
-            id="isPublic"
-            name="isPublic"
-            checked={data.isPublic}
-            onChange={handlePublicChange}
-          />
-
-          <ul>
-            {data.photos.map((photo, index) => (
-              <li key={index}>
-                <img src={photo.cdnUrl} alt={`Trip photo ${index}`} />
-                <button onClick={() => handlePhotoDelete(index)}>Delete</button>
-              </li>
+                {/* Delete Category */}
+                <button
+                  type="button"
+                  onClick={() => deleteCategory(categoryIndex)}
+                >
+                  Delete Category
+                </button>
+              </div>
             ))}
-          </ul>
 
-          <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
+            {/* Add Category */}
+            <button type="button" onClick={addCategory}>
+              Add Category
+            </button>
 
-          {/* Submit */}
-          <button type="submit">Submit</button>
-        </form>
+            {/* Public */}
+            <label htmlFor="isPublic">Public</label>
+            <input
+              type="checkbox"
+              id="isPublic"
+              name="isPublic"
+              checked={data.isPublic}
+              onChange={handlePublicChange}
+            />
+
+            <ul>
+              {data.photos.map((photo, index) => (
+                <li key={index}>
+                  <img src={photo.cdnUrl} alt={`Trip photo ${index}`} />
+                  <button onClick={() => handlePhotoDelete(index)}>
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
+
+            {/* Submit */}
+            <button type="submit">Submit</button>
+          </form>
+
+          {/* Delete Trip */}
+          <button type="button" onClick={handleDeleteTrip}>
+            Delete Trip
+          </button>
+        </>
       )}
     </>
   );
