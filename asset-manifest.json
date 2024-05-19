@@ -1,36 +1,40 @@
 {
   "files": {
     "main.css": "/frontend-diploma/static/css/main.c9695708.css",
-    "main.js": "/frontend-diploma/static/js/main.77a002b8.js",
+    "main.js": "/frontend-diploma/static/js/main.d22eb16f.js",
     "static/js/554.42ee7129.chunk.js": "/frontend-diploma/static/js/554.42ee7129.chunk.js",
     "static/js/911.4acd089b.chunk.js": "/frontend-diploma/static/js/911.4acd089b.chunk.js",
     "static/js/638.f4dca054.chunk.js": "/frontend-diploma/static/js/638.f4dca054.chunk.js",
-    "static/js/542.cc6947d8.chunk.js": "/frontend-diploma/static/js/542.cc6947d8.chunk.js",
+    "static/js/542.ae53e0df.chunk.js": "/frontend-diploma/static/js/542.ae53e0df.chunk.js",
     "static/css/4.11e35d64.chunk.css": "/frontend-diploma/static/css/4.11e35d64.chunk.css",
     "static/js/4.cf924480.chunk.js": "/frontend-diploma/static/js/4.cf924480.chunk.js",
     "static/css/355.f2718439.chunk.css": "/frontend-diploma/static/css/355.f2718439.chunk.css",
     "static/js/355.f7ae3489.chunk.js": "/frontend-diploma/static/js/355.f7ae3489.chunk.js",
+    "static/js/390.9e81c1d6.chunk.js": "/frontend-diploma/static/js/390.9e81c1d6.chunk.js",
+    "static/js/791.c75e1cc7.chunk.js": "/frontend-diploma/static/js/791.c75e1cc7.chunk.js",
     "static/js/192.55ed6f40.chunk.js": "/frontend-diploma/static/js/192.55ed6f40.chunk.js",
-    "static/css/684.d4ac1e85.chunk.css": "/frontend-diploma/static/css/684.d4ac1e85.chunk.css",
-    "static/js/684.b3a4cd02.chunk.js": "/frontend-diploma/static/js/684.b3a4cd02.chunk.js",
+    "static/css/166.e596f3ea.chunk.css": "/frontend-diploma/static/css/166.e596f3ea.chunk.css",
+    "static/js/166.de1ba6c5.chunk.js": "/frontend-diploma/static/js/166.de1ba6c5.chunk.js",
     "static/media/Hero-img.png": "/frontend-diploma/static/media/Hero-img.c39775a826ec767b0bbc.png",
     "index.html": "/frontend-diploma/index.html",
     "main.c9695708.css.map": "/frontend-diploma/static/css/main.c9695708.css.map",
-    "main.77a002b8.js.map": "/frontend-diploma/static/js/main.77a002b8.js.map",
+    "main.d22eb16f.js.map": "/frontend-diploma/static/js/main.d22eb16f.js.map",
     "554.42ee7129.chunk.js.map": "/frontend-diploma/static/js/554.42ee7129.chunk.js.map",
     "911.4acd089b.chunk.js.map": "/frontend-diploma/static/js/911.4acd089b.chunk.js.map",
     "638.f4dca054.chunk.js.map": "/frontend-diploma/static/js/638.f4dca054.chunk.js.map",
-    "542.cc6947d8.chunk.js.map": "/frontend-diploma/static/js/542.cc6947d8.chunk.js.map",
+    "542.ae53e0df.chunk.js.map": "/frontend-diploma/static/js/542.ae53e0df.chunk.js.map",
     "4.11e35d64.chunk.css.map": "/frontend-diploma/static/css/4.11e35d64.chunk.css.map",
     "4.cf924480.chunk.js.map": "/frontend-diploma/static/js/4.cf924480.chunk.js.map",
     "355.f2718439.chunk.css.map": "/frontend-diploma/static/css/355.f2718439.chunk.css.map",
     "355.f7ae3489.chunk.js.map": "/frontend-diploma/static/js/355.f7ae3489.chunk.js.map",
+    "390.9e81c1d6.chunk.js.map": "/frontend-diploma/static/js/390.9e81c1d6.chunk.js.map",
+    "791.c75e1cc7.chunk.js.map": "/frontend-diploma/static/js/791.c75e1cc7.chunk.js.map",
     "192.55ed6f40.chunk.js.map": "/frontend-diploma/static/js/192.55ed6f40.chunk.js.map",
-    "684.d4ac1e85.chunk.css.map": "/frontend-diploma/static/css/684.d4ac1e85.chunk.css.map",
-    "684.b3a4cd02.chunk.js.map": "/frontend-diploma/static/js/684.b3a4cd02.chunk.js.map"
+    "166.e596f3ea.chunk.css.map": "/frontend-diploma/static/css/166.e596f3ea.chunk.css.map",
+    "166.de1ba6c5.chunk.js.map": "/frontend-diploma/static/js/166.de1ba6c5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c9695708.css",
-    "static/js/main.77a002b8.js"
+    "static/js/main.d22eb16f.js"
   ]
 }
