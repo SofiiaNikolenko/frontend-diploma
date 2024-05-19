@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import AddPhotos from '../AddTripForm/AddPhotos/AddPhotos';
 
 const UpdateTrip = () => {
   const initialState = {
@@ -17,46 +17,50 @@ const UpdateTrip = () => {
       },
     ],
     isPublic: false,
+    photos: [],
   };
 
   const [data, setData] = useState(initialState);
+  const [cdnUrls, setCdnUrls] = useState([]);
   const [trips, setTrips] = useState([]);
-  const [selectedTrip, setSelectedTrip] = useState(null);
-
-  const token = localStorage.getItem('token');
+  const [selectedTripId, setSelectedTripId] = useState(null);
+  const [isTripSelected, setIsTripSelected] = useState(false);
 
   useEffect(() => {
-    const fetchTrips = async () => {
-      try {
-        const response = await axios.get(
-          'http://localhost:3000/api/trips/allpublic',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setTrips(response.data.trips);
-      } catch (error) {
+    const savedData = JSON.parse(localStorage.getItem('data'));
+
+    if (savedData) {
+      setData(savedData);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(data));
+  }, [data]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const url = 'http://localhost:3000/api/trips';
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        setTrips(responseData);
+      })
+      .catch(error => {
         console.error('Error fetching trips:', error);
-      }
-    };
-
-    fetchTrips();
-  }, [token]);
-
-  const handleTripSelect = trip => {
-    setSelectedTrip(trip);
-    setData({
-      title: trip.title,
-      description: trip.description,
-      categories: trip.categories,
-      isPublic: trip.isPublic,
-    });
-  };
+      });
+  }, []);
 
   const handleChange = event => {
     const { name, value } = event.target;
+
     setData(prevData => ({
       ...prevData,
       [name]: value,
@@ -65,12 +69,14 @@ const UpdateTrip = () => {
 
   const handleCategoryChange = (event, index) => {
     const { name, value } = event.target;
+
     setData(prevData => {
       const newCategories = [...prevData.categories];
       newCategories[index] = {
         ...newCategories[index],
         [name]: value,
       };
+
       return {
         ...prevData,
         categories: newCategories,
@@ -80,20 +86,28 @@ const UpdateTrip = () => {
 
   const handleTodoChange = (event, categoryIndex, todoIndex) => {
     const { value } = event.target;
+
     setData(prevData => {
       const newCategories = [...prevData.categories];
       const newTodoList = [...newCategories[categoryIndex].todoList];
-      newTodoList[todoIndex] = { todo: value };
+      newTodoList[todoIndex] = {
+        todo: value,
+      };
       newCategories[categoryIndex] = {
         ...newCategories[categoryIndex],
         todoList: newTodoList,
       };
-      return { ...prevData, categories: newCategories };
+
+      return {
+        ...prevData,
+        categories: newCategories,
+      };
     });
   };
 
   const handlePublicChange = event => {
     const { checked } = event.target;
+
     setData(prevData => ({
       ...prevData,
       isPublic: checked,
@@ -102,13 +116,18 @@ const UpdateTrip = () => {
 
   const handleCategoryPublicChange = (event, categoryIndex) => {
     const { checked } = event.target;
+
     setData(prevData => {
       const newCategories = [...prevData.categories];
       newCategories[categoryIndex] = {
         ...newCategories[categoryIndex],
         publicList: checked,
       };
-      return { ...prevData, categories: newCategories };
+
+      return {
+        ...prevData,
+        categories: newCategories,
+      };
     });
   };
 
@@ -119,7 +138,11 @@ const UpdateTrip = () => {
         ...prevData.categories,
         {
           nameCategory: '',
-          todoList: [{ todo: '' }],
+          todoList: [
+            {
+              todo: '',
+            },
+          ],
           publicList: false,
         },
       ],
@@ -128,115 +151,201 @@ const UpdateTrip = () => {
 
   const addTodo = categoryIndex => {
     const updatedCategories = [...data.categories];
-    updatedCategories[categoryIndex].todoList.push({ todo: '' });
-    setData(prevData => ({ ...prevData, categories: updatedCategories }));
+    updatedCategories[categoryIndex].todoList.push({
+      todo: '',
+    });
+    setData(prevData => ({
+      ...prevData,
+      categories: updatedCategories,
+    }));
   };
 
   const deleteCategory = categoryIndex => {
     setData(prevData => {
       const newCategories = [...prevData.categories];
       newCategories.splice(categoryIndex, 1);
-      return { ...prevData, categories: newCategories };
+
+      return {
+        ...prevData,
+        categories: newCategories,
+      };
     });
   };
 
   const deleteTodo = (categoryIndex, todoIndex) => {
     const updatedCategories = [...data.categories];
     updatedCategories[categoryIndex].todoList.splice(todoIndex, 1);
-    setData(prevData => ({ ...prevData, categories: updatedCategories }));
+    setData(prevData => ({
+      ...prevData,
+      categories: updatedCategories,
+    }));
   };
 
-  const handleSubmit = async event => {
+  const handleCdnUrlsChange = urls => {
+    setCdnUrls(urls);
+  };
+
+  const handleSubmit = event => {
     event.preventDefault();
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/api/trips/${selectedTrip._id}`,
-        {
-          ...data,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log('Trip updated successfully:', response.data);
-      // Оновити список мандрівок або надати користувачеві зворотній зв'язок
-    } catch (error) {
-      console.error('Error updating trip:', error);
-    }
+
+    const token = localStorage.getItem('token');
+    const url = `http://localhost:3000/api/trips/${selectedTripId}`;
+
+    // const updatedPhotos = data.photos.map(photo => {
+    //   const cdnUrl = cdnUrls.find(url => url === photo.cdnUrl);
+    //   return cdnUrl
+    //     ? { cdnUrl, uuid: photo.uuid }
+    //     : { cdnUrl: photo.cdnUrl, uuid: photo.uuid };
+    // });
+    const updatedPhotos = data.photos.map(photo => {
+      const cdnUrl = cdnUrls.find(url => url === photo.cdnUrl);
+      return cdnUrl
+        ? { cdnUrl, uuid: photo.uuid }
+        : { cdnUrl: photo.cdnUrl, uuid: photo.uuid };
+    });
+
+    // Додати нові фото, якщо вони не були знайдені серед існуючих фото
+    cdnUrls.forEach(newPhoto => {
+      if (!data.photos.find(photo => photo.cdnUrl === newPhoto.cdnUrl)) {
+        updatedPhotos.push({ cdnUrl: newPhoto.cdnUrl, uuid: newPhoto.uuid });
+      }
+    });
+
+
+    const updatedData = {
+      ...data,
+      categories: data.categories.map(category => ({
+        nameCategory: category.nameCategory,
+        todoList: category.todoList.map(todo => ({
+          todo: todo.todo,
+        })),
+        publicList: category.publicList,
+      })),
+      photos: [...updatedPhotos],
+    };
+
+    fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('Response:', responseData);
+        setData(initialState);
+        localStorage.removeItem('data');
+        setCdnUrls([]);
+        // window.location.reload();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+  const handleTripSelect = tripId => {
+    const selectedTrip = trips.find(trip => trip._id === tripId);
+    setData({
+      title: selectedTrip.title,
+      description: selectedTrip.description,
+      categories: selectedTrip.categories.map(category => ({
+        nameCategory: category.nameCategory,
+        todoList: category.todoList.map(todo => ({
+          todo: todo.todo,
+        })),
+        publicList: category.publicList,
+      })),
+      isPublic: selectedTrip.isPublic,
+      photos: selectedTrip.photos.map(photo => ({
+        cdnUrl: photo.cdnUrl,
+        uuid: photo.uuid,
+      })),
+    });
+    setCdnUrls(selectedTrip.photos.map(photo => photo.cdnUrl));
+    setSelectedTripId(tripId);
+    setIsTripSelected(true);
   };
 
   return (
     <>
-      <h2>Select a Trip to Update</h2>
+      <h1>Form</h1>
+
+      <h2>Select Trip to Edit</h2>
       <ul>
         {trips.map(trip => (
-          <li key={trip._id} onClick={() => handleTripSelect(trip)}>
+          <li key={trip._id} onClick={() => handleTripSelect(trip._id)}>
             {trip.title}
           </li>
         ))}
       </ul>
 
-      {selectedTrip && (
+      {isTripSelected && (
         <form onSubmit={handleSubmit}>
-          <h3>Update Trip: {selectedTrip.title}</h3>
-          <label>
-            Title:
-            <input
-              type="text"
-              name="title"
-              value={data.title}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Description:
-            <input
-              type="text"
-              name="description"
-              value={data.description}
-              onChange={handleChange}
-            />
-          </label>
+          {/* Title */}
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={data.title}
+            onChange={handleChange}
+          />
+
+          {/* Description */}
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={data.description}
+            onChange={handleChange}
+          />
+
+          {/* Categories */}
           <h2>Categories</h2>
           {data.categories.map((category, categoryIndex) => (
             <div key={categoryIndex}>
-              <label>
-                Category Name:
-                <input
-                  type="text"
-                  name="nameCategory"
-                  value={category.nameCategory}
-                  onChange={event => handleCategoryChange(event, categoryIndex)}
-                />
-              </label>
-              <label>
-                Public:
-                <input
-                  type="checkbox"
-                  name="publicList"
-                  checked={category.publicList}
-                  onChange={event =>
-                    handleCategoryPublicChange(event, categoryIndex)
-                  }
-                />
-              </label>
+              <label htmlFor={`category-${categoryIndex}`}>Category Name</label>
+              <input
+                type="text"
+                id={`category-${categoryIndex}`}
+                name="nameCategory"
+                value={category.nameCategory}
+                onChange={event => handleCategoryChange(event, categoryIndex)}
+              />
+
+              {/* Category Public */}
+              <label htmlFor={`category-public-${categoryIndex}`}>Public</label>
+              <input
+                type="checkbox"
+                id={`category-public-${categoryIndex}`}
+                name="publicList"
+                checked={category.publicList}
+                onChange={event =>
+                  handleCategoryPublicChange(event, categoryIndex)
+                }
+              />
+
+              {/* Todo List */}
               <h3>Todo List</h3>
               {category.todoList.map((todo, todoIndex) => (
                 <div key={todoIndex}>
-                  <label>
-                    Todo:
-                    <input
-                      type="text"
-                      name="todo"
-                      value={todo.todo}
-                      onChange={event =>
-                        handleTodoChange(event, categoryIndex, todoIndex)
-                      }
-                    />
+                  <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
+                    Todo
                   </label>
+                  <input
+                    type="text"
+                    id={`todo-${categoryIndex}-${todoIndex}`}
+                    name="todo"
+                    value={todo.todo}
+                    onChange={event =>
+                      handleTodoChange(event, categoryIndex, todoIndex)
+                    }
+                  />
+
+                  {/* Delete Todo */}
                   <button
                     type="button"
                     onClick={() => deleteTodo(categoryIndex, todoIndex)}
@@ -245,9 +354,13 @@ const UpdateTrip = () => {
                   </button>
                 </div>
               ))}
+
+              {/* Add Todo */}
               <button type="button" onClick={() => addTodo(categoryIndex)}>
                 Add Todo
               </button>
+
+              {/* Delete Category */}
               <button
                 type="button"
                 onClick={() => deleteCategory(categoryIndex)}
@@ -256,19 +369,26 @@ const UpdateTrip = () => {
               </button>
             </div>
           ))}
+
+          {/* Add Category */}
           <button type="button" onClick={addCategory}>
             Add Category
           </button>
-          <label>
-            Public:
-            <input
-              type="checkbox"
-              name="isPublic"
-              checked={data.isPublic}
-              onChange={handlePublicChange}
-            />
-          </label>
-          <button type="submit">Update Trip</button>
+
+          {/* Public */}
+          <label htmlFor="isPublic">Public</label>
+          <input
+            type="checkbox"
+            id="isPublic"
+            name="isPublic"
+            checked={data.isPublic}
+            onChange={handlePublicChange}
+          />
+
+          <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
+
+          {/* Submit */}
+          <button type="submit">Submit</button>
         </form>
       )}
     </>
