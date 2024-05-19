@@ -1,4 +1,10 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { useState, useEffect } from 'react';
+import {
+  deleteFile,
+  UploadcareSimpleAuthSchema,
+} from '@uploadcare/rest-client';
+
 import AddPhotos from '../AddTripForm/AddPhotos/AddPhotos';
 
 const UpdateTrip = () => {
@@ -25,6 +31,11 @@ const UpdateTrip = () => {
   const [trips, setTrips] = useState([]);
   const [selectedTripId, setSelectedTripId] = useState(null);
   const [isTripSelected, setIsTripSelected] = useState(false);
+
+  const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
+    publicKey: "274c6cf9681b13936265",
+    secretKey: "9cfba5a3ce13072e7ac2",
+  });
 
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('data'));
@@ -185,18 +196,42 @@ const UpdateTrip = () => {
     setCdnUrls(urls);
   };
 
+  // const handlePhotoDelete = index => {
+  //   const updatedPhotos = [...data.photos];
+  //   updatedPhotos.splice(index, 1);
+  //   setData(prevData => ({
+  //     ...prevData,
+  //     photos: updatedPhotos,
+  //   }));
+  // };
+  const handlePhotoDelete = index => {
+    const updatedPhotos = [...data.photos];
+    const deletedPhoto = updatedPhotos.splice(index, 1)[0];
+
+    // Видалення фото з Uploadcare за його UUID
+    deleteFile(
+      { uuid: deletedPhoto.uuid },
+      { authSchema: uploadcareSimpleAuthSchema }
+    )
+      .then(() => {
+        console.log('Photo successfully deleted from Uploadcare');
+      })
+      .catch(error => {
+        console.error('Error deleting photo from Uploadcare:', error);
+      });
+
+    setData(prevData => ({
+      ...prevData,
+      photos: updatedPhotos,
+    }));
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
 
     const token = localStorage.getItem('token');
     const url = `http://localhost:3000/api/trips/${selectedTripId}`;
 
-    // const updatedPhotos = data.photos.map(photo => {
-    //   const cdnUrl = cdnUrls.find(url => url === photo.cdnUrl);
-    //   return cdnUrl
-    //     ? { cdnUrl, uuid: photo.uuid }
-    //     : { cdnUrl: photo.cdnUrl, uuid: photo.uuid };
-    // });
     const updatedPhotos = data.photos.map(photo => {
       const cdnUrl = cdnUrls.find(url => url === photo.cdnUrl);
       return cdnUrl
@@ -204,13 +239,11 @@ const UpdateTrip = () => {
         : { cdnUrl: photo.cdnUrl, uuid: photo.uuid };
     });
 
-    // Додати нові фото, якщо вони не були знайдені серед існуючих фото
     cdnUrls.forEach(newPhoto => {
       if (!data.photos.find(photo => photo.cdnUrl === newPhoto.cdnUrl)) {
         updatedPhotos.push({ cdnUrl: newPhoto.cdnUrl, uuid: newPhoto.uuid });
       }
     });
-
 
     const updatedData = {
       ...data,
@@ -384,6 +417,15 @@ const UpdateTrip = () => {
             checked={data.isPublic}
             onChange={handlePublicChange}
           />
+
+          <ul>
+            {data.photos.map((photo, index) => (
+              <li key={index}>
+                <img src={photo.cdnUrl} alt={`Trip photo ${index}`} />
+                <button onClick={() => handlePhotoDelete(index)}>Delete</button>
+              </li>
+            ))}
+          </ul>
 
           <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
 
