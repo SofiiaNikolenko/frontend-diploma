@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/512.edbfa9be.chunk.css","mappings":"AAAA,gDACE,wBAAwC,CACxC,UACF","sources":["components/Auth/RegistrationSections/RegistrationForm/RegistrationForm.module.css"],"sourcesContent":[".registrationFormButton {\n  background-color: rgba(141, 211, 187, 1);\n  color: rgba(255, 255, 255, 1);\n}\n"],"names":[],"sourceRoot":""}
