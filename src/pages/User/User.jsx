@@ -2,7 +2,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import AddTripForm from '../../components/UserSections/AddTripForm/AddTripForm';
 import AllUserTrips from '../../components/UserSections/AllUserTrips/AllUserTrips';
@@ -21,11 +20,7 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }

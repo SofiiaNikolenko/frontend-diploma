@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const TripDescription = styled.p`
   color: #666;
   font-size: 14px;
-  line-height: 5px;
   margin-bottom: 16px;
 `;
 

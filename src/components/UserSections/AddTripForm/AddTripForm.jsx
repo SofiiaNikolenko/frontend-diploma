@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import AddPhotos from './AddPhotos/AddPhotos';
+import { Input, Checkbox, Button } from 'antd';
+import ButtonSend from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
-// import {
-//   FormWrapper,
-//   FormTitle,
-//   FormElement,
-//   Label,
-//   Input,
-//   Checkbox,
-//   Button,
-//   CategoryContainer,
-//   TodoContainer,
-//   TodoInput,
-//   SmallButton,
-// } from './AddTripForm.style';
+import {
+  Form,
+  CategoriesDiv,
+  PublicCheckboxDiv,
+  TodoDiv,
+  ChangeDiv,
+  BottomDiv,
+} from './AddTripForm.style';
+
+const { TextArea } = Input;
 
 const AddTripForm = () => {
   const initialState = {
@@ -211,10 +211,10 @@ const AddTripForm = () => {
   return (
     <>
       <h1>Form</h1>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         {/* Title */}
         <label htmlFor="title">Title</label>
-        <input
+        <Input
           type="text"
           id="title"
           name="title"
@@ -224,7 +224,7 @@ const AddTripForm = () => {
 
         {/* Description */}
         <label htmlFor="description">Description</label>
-        <input
+        <TextArea
           type="text"
           id="description"
           name="description"
@@ -233,92 +233,128 @@ const AddTripForm = () => {
         />
 
         {/* Categories */}
-        <h2>Categories</h2>
+        <h4>Categories</h4>
         {data.categories.map((category, categoryIndex) => (
-          <div key={categoryIndex}>
+          <CategoriesDiv key={categoryIndex}>
             <label htmlFor={`category-${categoryIndex}`}>Category Name</label>
-            <input
-              type="text"
-              id={`category-${categoryIndex}`}
-              name="nameCategory"
-              value={category.nameCategory}
-              onChange={event => handleCategoryChange(event, categoryIndex)}
-            />
+            <TodoDiv>
+              <Input
+                type="text"
+                id={`category-${categoryIndex}`}
+                name="nameCategory"
+                value={category.nameCategory}
+                onChange={event => handleCategoryChange(event, categoryIndex)}
+              />
 
-            {/* Category Public */}
-            <label htmlFor={`category-public-${categoryIndex}`}>Public</label>
-            <input
-              type="checkbox"
-              id={`category-public-${categoryIndex}`}
-              name="publicList"
-              checked={category.publicList}
-              onChange={event =>
-                handleCategoryPublicChange(event, categoryIndex)
-              }
-            />
-
-            {/* Todo List */}
-            <h3>Todo List</h3>
-            {category.todoList.map((todo, todoIndex) => (
-              <div key={todoIndex}>
-                <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
-                  Todo
+              {/* Category Public */}
+              <PublicCheckboxDiv>
+                <label htmlFor={`category-public-${categoryIndex}`}>
+                  Public
                 </label>
-                <input
-                  type="text"
-                  id={`todo-${categoryIndex}-${todoIndex}`}
-                  name="todo"
-                  value={todo.todo}
+                <Checkbox
+                  type="checkbox"
+                  id={`category-public-${categoryIndex}`}
+                  name="publicList"
+                  checked={category.publicList}
                   onChange={event =>
-                    handleTodoChange(event, categoryIndex, todoIndex)
+                    handleCategoryPublicChange(event, categoryIndex)
                   }
                 />
+              </PublicCheckboxDiv>
+            </TodoDiv>
 
-                {/* Delete Todo */}
-                <button
-                  type="button"
-                  onClick={() => deleteTodo(categoryIndex, todoIndex)}
-                >
-                  Delete Todo
-                </button>
+            {/* Todo List */}
+            <label>Todo List</label>
+            {category.todoList.map((todo, todoIndex) => (
+              <div key={todoIndex}>
+                {/* <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
+                  Todo
+                </label> */}
+                <TodoDiv>
+                  <Input
+                    type="text"
+                    id={`todo-${categoryIndex}-${todoIndex}`}
+                    name="todo"
+                    value={todo.todo}
+                    onChange={event =>
+                      handleTodoChange(event, categoryIndex, todoIndex)
+                    }
+                  />
+
+                  {/* Delete Todo */}
+                  <Button
+                    type="primary"
+                    danger
+                    style={{ backgroundColor: '#ED5E68' }}
+                    onClick={() => deleteTodo(categoryIndex, todoIndex)}
+                  >
+                    Delete Todo
+                  </Button>
+                </TodoDiv>
               </div>
             ))}
+            <ChangeDiv>
+              {/* Add Todo */}
+              <Button
+                type="primary"
+                style={{ backgroundColor: '#8DD3BB' }}
+                onClick={() => addTodo(categoryIndex)}
+              >
+                Add Todo
+              </Button>
 
-            {/* Add Todo */}
-            <button type="button" onClick={() => addTodo(categoryIndex)}>
-              Add Todo
-            </button>
-
-            {/* Delete Category */}
-            <button
-              type="button"
-              onClick={() => deleteCategory(categoryIndex)}
-            >
-              Delete Category
-            </button>
-          </div>
+              {/* Delete Category */}
+              <Button
+                type="primary"
+                style={{ backgroundColor: '#ED5E68' }}
+                danger
+                onClick={() => deleteCategory(categoryIndex)}
+              >
+                Delete Category
+              </Button>
+            </ChangeDiv>
+          </CategoriesDiv>
         ))}
 
-        {/* Add Category */}
-        <button type="button" onClick={addCategory}>
-          Add Category
-        </button>
+        <BottomDiv>
+          {/* Add Category */}
+          <Button
+            type="primary"
+            style={{ backgroundColor: '#8DD3BB' }}
+            onClick={addCategory}
+          >
+            Add Category
+          </Button>
 
-        {/* Public */}
-        <label htmlFor="isPublic">Public</label>
-        <input
-          type="checkbox"
-          id="isPublic"
-          name="isPublic"
-          checked={data.isPublic}
-          onChange={handlePublicChange}
-        />
+          {/* Public */}
+          <PublicCheckboxDiv>
+            <label htmlFor="isPublic">Public trip</label>
+            <Checkbox
+              type="checkbox"
+              id="isPublic"
+              name="isPublic"
+              checked={data.isPublic}
+              onChange={handlePublicChange}
+            />
+          </PublicCheckboxDiv>
+        </BottomDiv>
 
         <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
 
         {/* Submit */}
-        <button type="submit">Submit</button>
-      </form>
+        <ButtonSend
+          style={{
+            marginTop: '10px',
+            color: '#8DD3BB',
+            borderColor: '#8DD3BB',
+          }}
+          variant="outlined"
+          startIcon={<SendIcon />}
+          type="submit"
+        >
+          Submit
+        </ButtonSend>
+      </Form>
     </>
   );
 };

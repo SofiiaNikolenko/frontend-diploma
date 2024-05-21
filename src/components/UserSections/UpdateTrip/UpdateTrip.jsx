@@ -401,7 +401,7 @@ const UpdateTrip = () => {
 
             {/* Description */}
             <label htmlFor="description">Description</label>
-            <input
+            <textarea
               type="text"
               id="description"
               name="description"
