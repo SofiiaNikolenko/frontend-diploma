@@ -1,5 +1,16 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
+
 import React, { useState, useEffect } from 'react';
+import { Card, Col, Row } from 'antd';
+import {
+  TripDescription,
+  Category,
+  CategoryName,
+  TodoList,
+  TodoItem,
+  PhotoList,
+  Photo,
+} from './AllUserTrips.style';
 
 const AllUserTrips = () => {
   const [trips, setTrips] = useState([]);
@@ -18,41 +29,45 @@ const AllUserTrips = () => {
 
   return (
     <>
-      <h1>All User Trips</h1>
-      <ul>
+      <Row gutter={16}>
         {trips.map(trip => (
-          <li key={trip._id}>
-            <h2>{trip.title}</h2>
-            <p>{trip.description}</p>
-            <h3>Categories:</h3>
-            <ul>
-              {trip.categories.map((category, index) => (
-                <li key={index}>
-                  <h4>{category.nameCategory}</h4>
-                  <ul>
-                    {category.todoList.map((todo, index) => (
-                      <li key={index}>{todo.todo}</li>
+          <Col span={8} key={trip._id}>
+            <Card
+              style={{ marginBottom: '15px' }}
+              title={trip.title}
+              bordered={false}
+            >
+              <TripDescription>{trip.description}</TripDescription>
+              <Category>Categories:</Category>
+              <ul>
+                {trip.categories.map((category, index) => (
+                  <li key={index}>
+                    <CategoryName>{category.nameCategory}</CategoryName>
+                    <TodoList>
+                      {category.todoList.map((todo, index) => (
+                        <TodoItem key={index}>{todo.todo}</TodoItem>
+                      ))}
+                    </TodoList>
+                  </li>
+                ))}
+              </ul>
+              <p>Public: {trip.isPublic ? 'Yes' : 'No'}</p>
+              {trip.photos.length > 0 && (
+                <div>
+                  <h3>Photos:</h3>
+                  <PhotoList>
+                    {trip.photos.map((photo, index) => (
+                      <Photo key={index}>
+                        <img src={photo.cdnUrl} alt={`Photo ${index + 1}`} />
+                      </Photo>
                     ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-            <p>Public: {trip.isPublic ? 'Yes' : 'No'}</p>
-            {trip.photos.length > 0 && (
-              <div>
-                <h3>Photos:</h3>
-                <ul>
-                  {trip.photos.map((photo, index) => (
-                    <li key={index}>
-                      <img src={photo.cdnUrl} alt={`Photo ${index + 1}`} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </li>
+                  </PhotoList>
+                </div>
+              )}
+            </Card>
+          </Col>
         ))}
-      </ul>
+      </Row>
     </>
   );
 };
