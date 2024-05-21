@@ -4,15 +4,15 @@ export const Header = styled.header`
   font-size: 14px;
   font-weight: 600;
   line-height: 17px;
-  /* position: absolute;
+  position: absolute;
   width: 100%;
   top: 0;
-  left: 0; */
-  color: rgba(255, 255, 255, 1);
+  left: 0;
+  /* color: rgba(255, 255, 255, 1); */
   color: black;
-  background-color: rgba(255, 255, 255, 1);
+  /* background-color: rgba(255, 255, 255, 1);
   box-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08),
-    0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
+    0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08); */
 `;
 
 export const Container = styled.div`
@@ -48,7 +48,6 @@ export const ListAuthenticationItem = styled.li``;
 export const ListAuthenticationLink = styled.a``;
 
 export const Login = styled.a`
-  /* Добавьте здесь стили, если они отличаются от обычной ссылки */
 `;
 
 export const Button = styled.button`

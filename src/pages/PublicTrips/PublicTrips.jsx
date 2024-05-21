@@ -1,11 +1,12 @@
 import AllPublicTrips from '../../components/PublicTripsSections/AllPublicTrips';
 
+import { Container } from './PublicTrips.style';
+
 const PublicTrips = () => {
   return (
-    <>
-      <h1>PublicTrips</h1>
+    <Container>
       <AllPublicTrips></AllPublicTrips>
-    </>
+    </Container>
   );
 };
 

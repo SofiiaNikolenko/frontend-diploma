@@ -2,6 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Card, Col, Row } from 'antd';
+
+import {
+  TripDescription,
+  Category,
+  CategoryName,
+  TodoList,
+  TodoItem,
+  PhotoList,
+  Photo,
+} from './AllPublicTrips.style';
 
 const AllPublicTrips = () => {
   const [trips, setTrips] = useState([]);
@@ -30,43 +41,48 @@ const AllPublicTrips = () => {
   };
 
   return (
-    <div>
+    <Row gutter={[16, 16]}>
       {trips.map(trip => (
-        <div key={trip._id}>
-          <h3>{trip.title}</h3>
-          <p>{trip.description}</p>
-          <div>
-            <h4>Categories:</h4>
+        <Col span={8} key={trip._id}>
+          <Card
+            style={{ marginBottom: '15px' }}
+            title={trip.title}
+            bordered={false}
+            headStyle={{ backgroundColor: '#8DD3BB', color: '#fafbfc' }}
+            actions={[
+              <button key="like" onClick={() => handleLike(trip._id)}>
+                Like
+              </button>,
+            ]}
+          >
+            <TripDescription>{trip.description}</TripDescription>
+            <Category>Categories:</Category>
             {trip.categories
               .filter(category => category.publicList)
               .map(category => (
                 <div key={category._id}>
-                  <h5>{category.nameCategory}</h5>
-                  <ul>
+                  <CategoryName>{category.nameCategory}</CategoryName>
+                  <TodoList>
                     {category.todoList.map(todo => (
-                      <li key={todo._id}>{todo.todo}</li>
+                      <TodoItem key={todo._id}>{todo.todo}</TodoItem>
                     ))}
-                  </ul>
+                  </TodoList>
                 </div>
               ))}
-          </div>
-          <div>
-            <h4>Photos:</h4>
             <div>
-              {trip.photos.map((photo, index) => (
-                <img
-                  key={index}
-                  src={photo.cdnUrl}
-                  alt={`Trip photo ${index + 1}`}
-                  style={{ width: '200px', height: 'auto' }}
-                />
-              ))}
+              <h3>Photos:</h3>
+              <PhotoList>
+                {trip.photos.map((photo, index) => (
+                  <Photo key={index}>
+                    <img src={photo.cdnUrl} alt={`Photo ${index + 1}`} />
+                  </Photo>
+                ))}
+              </PhotoList>
             </div>
-          </div>
-          <button onClick={() => handleLike(trip._id)}>Like</button>
-        </div>
+          </Card>
+        </Col>
       ))}
-    </div>
+    </Row>
   );
 };
 
@@ -92,6 +108,14 @@ export default AllPublicTrips;
 
 //     fetchTrips();
 //   }, []);
+
+//   const handleLike = async tripId => {
+//     try {
+//       await axios.patch(`http://localhost:3000/api/trips/${tripId}/likes`);
+//     } catch (error) {
+//       console.error('Error liking trip:', error);
+//     }
+//   };
 
 //   return (
 //     <div>
@@ -127,6 +151,7 @@ export default AllPublicTrips;
 //               ))}
 //             </div>
 //           </div>
+//           <button onClick={() => handleLike(trip._id)}>Like</button>
 //         </div>
 //       ))}
 //     </div>

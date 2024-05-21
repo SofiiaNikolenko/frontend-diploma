@@ -36,6 +36,7 @@ const AllUserTrips = () => {
               style={{ marginBottom: '15px' }}
               title={trip.title}
               bordered={false}
+              headStyle={{ backgroundColor: '#8DD3BB', color: '#fafbfc' }}
             >
               <TripDescription>{trip.description}</TripDescription>
               <Category>Categories:</Category>
