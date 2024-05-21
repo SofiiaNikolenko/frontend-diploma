@@ -1,19 +1,15 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState, Suspense } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 
-import {
-  Header,
-  Container,
-  Nav,
-  NavList,
-  NavListItem,
-  Button,
-} from './Layout.style';
+import { Header, Container, ContainerDiv, Nav, Button } from './Layout.style';
 
 const Layout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -35,52 +31,58 @@ const Layout = () => {
       .then(response => {
         localStorage.removeItem('token');
         setIsAuthenticated(false);
+        toast.success('Успішний вихід!');
         navigate('/');
       })
       .catch(error => {
-        console.error('There was an error!', error);
         localStorage.removeItem('token');
+        toast.error('Щось пішло не так під час виходу! Спробуйте ще раз.');
         setIsAuthenticated(false);
         navigate('/');
       });
   };
 
+  const navStyle = {
+    color: location.pathname === '/' ? 'white' : 'inherit',
+  };
+
   return (
     <>
+      <ToastContainer />
       <Header>
         <Container>
           <Nav>
-            <NavList>
-              <NavListItem>
-                <NavLink to="/">Home</NavLink>
-              </NavListItem>
-              <NavListItem>
-                <NavLink to="/publictrips">Public Trips</NavLink>
-              </NavListItem>
-              <NavListItem>
-                <NavLink to="/populartrips">Popular Trips</NavLink>
-              </NavListItem>
+            <ContainerDiv>
+              <NavLink to="/" style={navStyle}>
+                Home
+              </NavLink>
+              <NavLink to="/publictrips" style={navStyle}>
+                Public Trips
+              </NavLink>
+              <NavLink to="/populartrips" style={navStyle}>
+                Popular Trips
+              </NavLink>
+            </ContainerDiv>
+            <ContainerDiv>
               {isAuthenticated && (
                 <>
-                  <NavListItem>
-                    <NavLink to="/user">User</NavLink>
-                  </NavListItem>
-                  <NavListItem>
-                    <Button onClick={handleLogout}>Logout</Button>
-                  </NavListItem>
+                  <NavLink to="/user" style={navStyle}>
+                    User
+                  </NavLink>
+                  <Button onClick={handleLogout}>Logout</Button>
                 </>
               )}
               {!isAuthenticated && (
                 <>
-                  <NavListItem>
-                    <NavLink to="/login">Login</NavLink>
-                  </NavListItem>
-                  <NavListItem>
-                    <NavLink to="/registration">Registration</NavLink>
-                  </NavListItem>
+                  <NavLink to="/login" style={navStyle}>
+                    Login
+                  </NavLink>
+                  <NavLink to="/registration" style={navStyle}>
+                    Registration
+                  </NavLink>
                 </>
               )}
-            </NavList>
+            </ContainerDiv>
           </Nav>
         </Container>
       </Header>

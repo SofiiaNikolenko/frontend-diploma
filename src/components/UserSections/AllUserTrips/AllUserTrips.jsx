@@ -27,6 +27,15 @@ const AllUserTrips = () => {
       .catch(error => console.error('Error fetching trips:', error));
   }, [token]);
 
+   const getRandomColor = () => {
+     const letters = '0123456789ABCDEF';
+     let color = '#';
+     for (let i = 0; i < 6; i++) {
+       color += letters[Math.floor(Math.random() * 16)];
+     }
+     return color;
+   };
+
   return (
     <>
       <Row gutter={16}>
@@ -36,7 +45,7 @@ const AllUserTrips = () => {
               style={{ marginBottom: '15px' }}
               title={trip.title}
               bordered={false}
-              headStyle={{ backgroundColor: '#8DD3BB', color: '#fafbfc' }}
+              headStyle={{ backgroundColor: getRandomColor(), color: '#fafbfc' }}
             >
               <TripDescription>{trip.description}</TripDescription>
               <Category>Categories:</Category>
