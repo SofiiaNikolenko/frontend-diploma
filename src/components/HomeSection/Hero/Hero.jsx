@@ -9,8 +9,8 @@ const Hero = () => {
   return (
     <HeroSection>
       <Container>
-        <TitleOne>Helping Others</TitleOne>
-        <TitleTwo>LIVE & TRAVEL</TitleTwo>
+        <TitleOne>Зберігай або ділися своїми враження</TitleOne>
+        <TitleTwo>ЖИВИ & ПОДОРОЖУЙ</TitleTwo>
       </Container>
     </HeroSection>
   );

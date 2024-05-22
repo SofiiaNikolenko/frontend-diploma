@@ -54,31 +54,31 @@ const Layout = () => {
           <Nav>
             <ContainerDiv>
               <NavLink to="/" style={navStyle}>
-                Home
+                Головна
               </NavLink>
               <NavLink to="/publictrips" style={navStyle}>
-                Public Trips
+                Стрічка
               </NavLink>
               <NavLink to="/populartrips" style={navStyle}>
-                Popular Trips
+                Популярні мандрівки
               </NavLink>
             </ContainerDiv>
             <ContainerDiv>
               {isAuthenticated && (
                 <>
                   <NavLink to="/user" style={navStyle}>
-                    User
+                    Щоденник
                   </NavLink>
-                  <Button onClick={handleLogout}>Logout</Button>
+                  <Button onClick={handleLogout}>Вихід</Button>
                 </>
               )}
               {!isAuthenticated && (
                 <>
                   <NavLink to="/login" style={navStyle}>
-                    Login
+                    Авторизація
                   </NavLink>
                   <NavLink to="/registration" style={navStyle}>
-                    Registration
+                    Регістрація
                   </NavLink>
                 </>
               )}

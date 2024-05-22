@@ -55,9 +55,9 @@ const User = () => {
             aria-label="user tabs"
             centered
           >
-            <Tab label="Add Trip" {...a11yProps(0)} />
-            <Tab label="All Trips" {...a11yProps(1)} />
-            <Tab label="Update Trip" {...a11yProps(2)} />
+            <Tab label="Дадавання мандрівки" {...a11yProps(0)} />
+            <Tab label="Усі твої мандрівки" {...a11yProps(1)} />
+            <Tab label="Редагування мандрівок" {...a11yProps(2)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>

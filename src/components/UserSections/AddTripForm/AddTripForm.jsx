@@ -197,7 +197,6 @@ const AddTripForm = () => {
     })
       .then(response => response.json())
       .then(responseData => {
-        console.log('Response:', responseData);
         setData(initialState);
         localStorage.removeItem('data');
         setCdnUrls([]);
@@ -212,7 +211,7 @@ const AddTripForm = () => {
     <>
       <Form onSubmit={handleSubmit}>
         {/* Title */}
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">Назва</label>
         <Input
           type="text"
           id="title"
@@ -222,7 +221,7 @@ const AddTripForm = () => {
         />
 
         {/* Description */}
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Опис</label>
         <TextArea
           type="text"
           id="description"
@@ -232,10 +231,10 @@ const AddTripForm = () => {
         />
 
         {/* Categories */}
-        <h4>Categories</h4>
+        <h4>Категорії</h4>
         {data.categories.map((category, categoryIndex) => (
           <CategoriesDiv key={categoryIndex}>
-            <label htmlFor={`category-${categoryIndex}`}>Category Name</label>
+            <label htmlFor={`category-${categoryIndex}`}>Назва категорії</label>
             <TodoDiv>
               <Input
                 type="text"
@@ -248,7 +247,7 @@ const AddTripForm = () => {
               {/* Category Public */}
               <PublicCheckboxDiv>
                 <label htmlFor={`category-public-${categoryIndex}`}>
-                  Public
+                  Публічна категорія?
                 </label>
                 <Checkbox
                   type="checkbox"
@@ -263,7 +262,7 @@ const AddTripForm = () => {
             </TodoDiv>
 
             {/* Todo List */}
-            <label>Todo List</label>
+            <label>Нотатки</label>
             {category.todoList.map((todo, todoIndex) => (
               <div key={todoIndex}>
                 {/* <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
@@ -287,7 +286,7 @@ const AddTripForm = () => {
                     style={{ backgroundColor: '#ED5E68' }}
                     onClick={() => deleteTodo(categoryIndex, todoIndex)}
                   >
-                    Delete Todo
+                    Видалити нотатку
                   </Button>
                 </TodoDiv>
               </div>
@@ -299,7 +298,7 @@ const AddTripForm = () => {
                 style={{ backgroundColor: '#8DD3BB' }}
                 onClick={() => addTodo(categoryIndex)}
               >
-                Add Todo
+                Додати нотатку
               </Button>
 
               {/* Delete Category */}
@@ -309,7 +308,7 @@ const AddTripForm = () => {
                 danger
                 onClick={() => deleteCategory(categoryIndex)}
               >
-                Delete Category
+                Видалити категорію
               </Button>
             </ChangeDiv>
           </CategoriesDiv>
@@ -322,12 +321,12 @@ const AddTripForm = () => {
             style={{ backgroundColor: '#8DD3BB' }}
             onClick={addCategory}
           >
-            Add Category
+            Додати категорію
           </Button>
 
           {/* Public */}
           <PublicCheckboxDiv>
-            <label htmlFor="isPublic">Public trip</label>
+            <label htmlFor="isPublic">Публачна мандрівка?</label>
             <Checkbox
               type="checkbox"
               id="isPublic"
@@ -351,7 +350,7 @@ const AddTripForm = () => {
           startIcon={<SendIcon />}
           type="submit"
         >
-          Submit
+          Відправити
         </ButtonSend>
       </Form>
     </>

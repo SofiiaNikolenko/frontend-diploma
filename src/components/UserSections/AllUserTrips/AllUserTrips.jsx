@@ -48,7 +48,7 @@ const AllUserTrips = () => {
               headStyle={{ backgroundColor: getRandomColor(), color: '#fafbfc' }}
             >
               <TripDescription>{trip.description}</TripDescription>
-              <Category>Categories:</Category>
+              <Category>Категорії:</Category>
               <ul>
                 {trip.categories.map((category, index) => (
                   <li key={index}>
@@ -61,10 +61,10 @@ const AllUserTrips = () => {
                   </li>
                 ))}
               </ul>
-              <p>Public: {trip.isPublic ? 'Yes' : 'No'}</p>
+              <p>Публачна мандрівка: {trip.isPublic ? 'Так' : 'Ні'}</p>
               {trip.photos.length > 0 && (
                 <div>
-                  <h3>Photos:</h3>
+                  <h3>Фотографії:</h3>
                   <PhotoList>
                     {trip.photos.map((photo, index) => (
                       <Photo key={index}>

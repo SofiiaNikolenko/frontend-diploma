@@ -33,7 +33,7 @@ export const TitleOne = styled.h2`
 
 export const TitleTwo = styled.h1`
   font-family: 'RalewayRegular';
-  font-size: 80px;
+  font-size: 40px;
   line-height: 101px;
   margin-bottom: 16px;
 `;

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Col, Row, Input, Select } from 'antd';
 import Modal from './Modal/Modal';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   TripDescription,
@@ -72,6 +74,14 @@ const AllPublicTrips = () => {
     return matchesSearchQuery && matchesCategory;
   });
 
+  useEffect(() => {
+    if (searchQuery || selectedCategory) {
+      if (filteredTrips.length === 0) {
+        toast.info('Нажаль не знайдено жодної мандрівки');
+      }
+    }
+  }, [filteredTrips.length, searchQuery, selectedCategory]);
+
   const uniqueCategories = [
     ...new Set(
       trips.flatMap(trip =>
@@ -91,14 +101,15 @@ const AllPublicTrips = () => {
 
   return (
     <div>
+      <ToastContainer />
       <Input
-        placeholder="Search trips"
+        placeholder="Пошук мандрівки"
         value={searchQuery}
         onChange={handleSearch}
         style={{ marginBottom: '20px' }}
       />
       <Select
-        placeholder="Filter by category"
+        placeholder="Фільтр за категоріями"
         style={{ width: '200px', marginBottom: '20px' }}
         onChange={handleCategoryChange}
         allowClear
