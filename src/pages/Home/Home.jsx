@@ -1,5 +1,5 @@
 import Hero from "../../components/HomeSection/Hero/Hero"
-import Places from "components/HomeSection/Places/Places";
+// import Places from "components/HomeSection/Places/Places";
 
 const Home = () => {
   return (

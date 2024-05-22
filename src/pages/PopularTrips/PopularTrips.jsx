@@ -1,11 +1,11 @@
 import AllPopularTrips from '../../components/PopularTripsSections/AllPopularTrips';
+import {Container} from "./PopularTrips.style"
 
 const PopularTrips = () => {
   return (
-    <>
-      <h1>PopularTrips</h1>
+    <Container>
       <AllPopularTrips></AllPopularTrips>
-    </>
+    </Container>
   );
 };
 

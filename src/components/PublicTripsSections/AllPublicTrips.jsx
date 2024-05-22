@@ -133,12 +133,12 @@ const AllPublicTrips = () => {
               }}
               actions={[
                 <button key="like" onClick={() => handleLike(trip._id)}>
-                  Like
+                  Вподобайка
                 </button>,
               ]}
             >
               <TripDescription>{trip.description}</TripDescription>
-              <Category>Categories:</Category>
+              <Category>Категорії:</Category>
               {trip.categories
                 .filter(category => category.publicList)
                 .map(category => (
@@ -152,7 +152,7 @@ const AllPublicTrips = () => {
                   </div>
                 ))}
               <div>
-                <h3>Photos:</h3>
+                <h3>Фотографії:</h3>
                 <PhotoList>
                   {trip.photos.map((photo, index) => (
                     <Photo key={index}>
