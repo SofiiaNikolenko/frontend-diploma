@@ -210,7 +210,6 @@ const AddTripForm = () => {
 
   return (
     <>
-      <h1>Form</h1>
       <Form onSubmit={handleSubmit}>
         {/* Title */}
         <label htmlFor="title">Title</label>

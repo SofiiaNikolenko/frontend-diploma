@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
+export const UpdateDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const Form = styled.form`
-  max-width: 600px;
+  min-width: 600px;
   padding: 15px;
   border: 1px solid #8dd3bb;
   border-radius: 5px;
@@ -45,4 +50,14 @@ export const BottomDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+`;
+
+export const ContainerImg = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
 `;

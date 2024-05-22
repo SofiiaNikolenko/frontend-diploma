@@ -37,9 +37,3 @@ export const TitleTwo = styled.h1`
   line-height: 101px;
   margin-bottom: 16px;
 `;
-
-export const TitleThree = styled.h3`
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 24px;
-`;

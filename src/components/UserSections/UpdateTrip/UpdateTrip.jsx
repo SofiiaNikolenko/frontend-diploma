@@ -5,8 +5,26 @@ import {
   deleteFiles,
   UploadcareSimpleAuthSchema,
 } from '@uploadcare/rest-client';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Input, Checkbox, Button } from 'antd';
+import ButtonSend from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 import AddPhotos from '../AddTripForm/AddPhotos/AddPhotos';
+
+import {
+  UpdateDiv,
+  Form,
+  CategoriesDiv,
+  PublicCheckboxDiv,
+  TodoDiv,
+  ChangeDiv,
+  BottomDiv,
+  ContainerImg,
+} from './UpdateTrip.style';
+
+const { TextArea } = Input;
 
 const UpdateTrip = () => {
   const initialState = {
@@ -34,11 +52,6 @@ const UpdateTrip = () => {
   const [isTripSelected, setIsTripSelected] = useState(false);
   const [uploadcareSimpleAuthSchema, setUploadcareSimpleAuthSchema] =
     useState(null);
-
-  // const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
-  //   publicKey: "274c6cf9681b13936265",
-  //   secretKey: "9cfba5a3ce13072e7ac2",
-  // });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -224,29 +237,14 @@ const UpdateTrip = () => {
     setCdnUrls(urls);
   };
 
-  // const handlePhotoDelete = index => {
-  //   const updatedPhotos = [...data.photos];
-  //   updatedPhotos.splice(index, 1);
-  //   setData(prevData => ({
-  //     ...prevData,
-  //     photos: updatedPhotos,
-  //   }));
-  // };
   const handlePhotoDelete = index => {
     const updatedPhotos = [...data.photos];
     const deletedPhoto = updatedPhotos.splice(index, 1)[0];
 
-    // Видалення фото з Uploadcare за його UUID
     deleteFile(
       { uuid: deletedPhoto.uuid },
       { authSchema: uploadcareSimpleAuthSchema }
-    )
-      .then(() => {
-        console.log('Photo successfully deleted from Uploadcare');
-      })
-      .catch(error => {
-        console.error('Error deleting photo from Uploadcare:', error);
-      });
+    );
 
     setData(prevData => ({
       ...prevData,
@@ -295,14 +293,15 @@ const UpdateTrip = () => {
     })
       .then(response => response.json())
       .then(responseData => {
-        console.log('Response:', responseData);
+        toast.success('Мадрівка успішно оновлена!');
         setData(initialState);
         localStorage.removeItem('data');
         setCdnUrls([]);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error:', error);
+        toast.error('Упс... Щось пішло не так!');
       });
   };
 
@@ -344,7 +343,7 @@ const UpdateTrip = () => {
     })
       .then(response => response.json())
       .then(responseData => {
-        console.log('Trip deleted:', responseData);
+        toast.success('Мандрівка успішно видалена!');
         setData(initialState);
         localStorage.removeItem('data');
         setCdnUrls([]);
@@ -353,171 +352,211 @@ const UpdateTrip = () => {
       })
       .catch(error => {
         console.error('Error deleting trip:', error);
+        toast.error('Упс... Щось пішло не так!');
       });
 
     if (photoUUIDs.length > 0) {
       deleteFiles(
         { uuids: photoUUIDs },
         { authSchema: uploadcareSimpleAuthSchema }
-      )
-        .then(() => {
-          console.log(
-            `Photos successfully deleted from Uploadcare: ${photoUUIDs.join(
-              ', '
-            )}`
-          );
-        })
-        .catch(error => {
-          console.error('Error deleting photos from Uploadcare:', error);
-        });
+      );
     }
   };
 
   return (
     <>
-      <h1>Form</h1>
+      <ToastContainer />
+      <h2>Обери мандрівку для внесення зміни</h2>
+      <UpdateDiv>
+        <ul>
+          {trips.map(trip => (
+            <li key={trip._id} onClick={() => handleTripSelect(trip._id)}>
+              {trip.title}
+            </li>
+          ))}
+        </ul>
 
-      <h2>Select Trip to Edit</h2>
-      <ul>
-        {trips.map(trip => (
-          <li key={trip._id} onClick={() => handleTripSelect(trip._id)}>
-            {trip.title}
-          </li>
-        ))}
-      </ul>
+        {isTripSelected && (
+          <>
+            <Form onSubmit={handleSubmit}>
+              {/* Title */}
+              <label htmlFor="title">Назва</label>
+              <Input
+                type="text"
+                id="title"
+                name="title"
+                value={data.title}
+                onChange={handleChange}
+              />
 
-      {isTripSelected && (
-        <>
-          <form onSubmit={handleSubmit}>
-            {/* Title */}
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={data.title}
-              onChange={handleChange}
-            />
+              {/* Description */}
+              <label htmlFor="description">Опис</label>
+              <TextArea
+                type="text"
+                id="description"
+                name="description"
+                value={data.description}
+                onChange={handleChange}
+              />
 
-            {/* Description */}
-            <label htmlFor="description">Description</label>
-            <textarea
-              type="text"
-              id="description"
-              name="description"
-              value={data.description}
-              onChange={handleChange}
-            />
-
-            {/* Categories */}
-            <h2>Categories</h2>
-            {data.categories.map((category, categoryIndex) => (
-              <div key={categoryIndex}>
-                <label htmlFor={`category-${categoryIndex}`}>
-                  Category Name
-                </label>
-                <input
-                  type="text"
-                  id={`category-${categoryIndex}`}
-                  name="nameCategory"
-                  value={category.nameCategory}
-                  onChange={event => handleCategoryChange(event, categoryIndex)}
-                />
-
-                {/* Category Public */}
-                <label htmlFor={`category-public-${categoryIndex}`}>
-                  Public
-                </label>
-                <input
-                  type="checkbox"
-                  id={`category-public-${categoryIndex}`}
-                  name="publicList"
-                  checked={category.publicList}
-                  onChange={event =>
-                    handleCategoryPublicChange(event, categoryIndex)
-                  }
-                />
-
-                {/* Todo List */}
-                <h3>Todo List</h3>
-                {category.todoList.map((todo, todoIndex) => (
-                  <div key={todoIndex}>
-                    <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
-                      Todo
-                    </label>
-                    <input
+              {/* Categories */}
+              <h4>Категорії</h4>
+              {data.categories.map((category, categoryIndex) => (
+                <CategoriesDiv key={categoryIndex}>
+                  <label htmlFor={`category-${categoryIndex}`}>
+                    Назва категорії
+                  </label>
+                  <TodoDiv>
+                    <Input
                       type="text"
-                      id={`todo-${categoryIndex}-${todoIndex}`}
-                      name="todo"
-                      value={todo.todo}
+                      id={`category-${categoryIndex}`}
+                      name="nameCategory"
+                      value={category.nameCategory}
                       onChange={event =>
-                        handleTodoChange(event, categoryIndex, todoIndex)
+                        handleCategoryChange(event, categoryIndex)
                       }
                     />
 
-                    {/* Delete Todo */}
-                    <button
-                      type="button"
-                      onClick={() => deleteTodo(categoryIndex, todoIndex)}
+                    {/* Category Public */}
+                    <PublicCheckboxDiv>
+                      <label htmlFor={`category-public-${categoryIndex}`}>
+                        Публічна категорія?
+                      </label>
+                      <Checkbox
+                        type="checkbox"
+                        id={`category-public-${categoryIndex}`}
+                        name="publicList"
+                        checked={category.publicList}
+                        onChange={event =>
+                          handleCategoryPublicChange(event, categoryIndex)
+                        }
+                      />
+                    </PublicCheckboxDiv>
+                  </TodoDiv>
+
+                  {/* Todo List */}
+                  <h3>Нотатки</h3>
+                  {category.todoList.map((todo, todoIndex) => (
+                    <TodoDiv key={todoIndex}>
+                      {/* <label htmlFor={`todo-${categoryIndex}-${todoIndex}`}>
+                      Todo
+                    </label> */}
+                      <Input
+                        type="text"
+                        id={`todo-${categoryIndex}-${todoIndex}`}
+                        name="todo"
+                        value={todo.todo}
+                        onChange={event =>
+                          handleTodoChange(event, categoryIndex, todoIndex)
+                        }
+                      />
+
+                      {/* Delete Todo */}
+                      <Button
+                        type="primary"
+                        danger
+                        style={{ backgroundColor: '#ED5E68' }}
+                        onClick={() => deleteTodo(categoryIndex, todoIndex)}
+                      >
+                        Видалити нотатку
+                      </Button>
+                    </TodoDiv>
+                  ))}
+                  <ChangeDiv>
+                    {/* Add Todo */}
+                    <Button
+                      type="primary"
+                      style={{ backgroundColor: '#8DD3BB' }}
+                      onClick={() => addTodo(categoryIndex)}
                     >
-                      Delete Todo
-                    </button>
+                      Додати нотатку
+                    </Button>
+
+                    {/* Delete Category */}
+                    <Button
+                      type="primary"
+                      style={{ backgroundColor: '#ED5E68' }}
+                      danger
+                      onClick={() => deleteCategory(categoryIndex)}
+                    >
+                      Видалити категорію
+                    </Button>
+                  </ChangeDiv>
+                </CategoriesDiv>
+              ))}
+
+              <BottomDiv>
+                {/* Add Category */}
+                <Button
+                  type="primary"
+                  style={{ backgroundColor: '#8DD3BB' }}
+                  onClick={addCategory}
+                >
+                  Додати категорію
+                </Button>
+
+                {/* Public */}
+                <PublicCheckboxDiv>
+                  <label htmlFor="isPublic">Публачна мандрівка?</label>
+                  <Checkbox
+                    type="checkbox"
+                    id="isPublic"
+                    name="isPublic"
+                    checked={data.isPublic}
+                    onChange={handlePublicChange}
+                  />
+                </PublicCheckboxDiv>
+              </BottomDiv>
+
+              <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
+
+              <ContainerImg>
+                {data.photos.map((photo, index) => (
+                  <div key={index}>
+                    <img
+                      style={{ width: '150px' }}
+                      src={photo.cdnUrl}
+                      alt={`Trip photo ${index}`}
+                    />
+                    <Button
+                      type="primary"
+                      style={{ backgroundColor: '#ED5E68' }}
+                      danger
+                      onClick={() => handlePhotoDelete(index)}
+                    >
+                      Видалити
+                    </Button>
                   </div>
                 ))}
+              </ContainerImg>
 
-                {/* Add Todo */}
-                <button type="button" onClick={() => addTodo(categoryIndex)}>
-                  Add Todo
-                </button>
+              {/* Submit */}
+              <ButtonSend
+                style={{
+                  marginTop: '10px',
+                  color: '#8DD3BB',
+                  borderColor: '#8DD3BB',
+                }}
+                variant="outlined"
+                startIcon={<SendIcon />}
+                type="submit"
+              >
+                Відправити
+              </ButtonSend>
 
-                {/* Delete Category */}
-                <button
-                  type="button"
-                  onClick={() => deleteCategory(categoryIndex)}
-                >
-                  Delete Category
-                </button>
-              </div>
-            ))}
-
-            {/* Add Category */}
-            <button type="button" onClick={addCategory}>
-              Add Category
-            </button>
-
-            {/* Public */}
-            <label htmlFor="isPublic">Public</label>
-            <input
-              type="checkbox"
-              id="isPublic"
-              name="isPublic"
-              checked={data.isPublic}
-              onChange={handlePublicChange}
-            />
-
-            <ul>
-              {data.photos.map((photo, index) => (
-                <li key={index}>
-                  <img src={photo.cdnUrl} alt={`Trip photo ${index}`} />
-                  <button onClick={() => handlePhotoDelete(index)}>
-                    Delete
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            <AddPhotos onCdnUrlsChange={handleCdnUrlsChange} />
-
-            {/* Submit */}
-            <button type="submit">Submit</button>
-          </form>
-
-          {/* Delete Trip */}
-          <button type="button" onClick={handleDeleteTrip}>
-            Delete Trip
-          </button>
-        </>
-      )}
+              {/* Delete Trip */}
+              <Button
+                type="primary"
+                style={{ backgroundColor: '#ED5E68' }}
+                danger
+                onClick={handleDeleteTrip}
+              >
+                Видалити мандрівку
+              </Button>
+            </Form>
+          </>
+        )}
+      </UpdateDiv>
     </>
   );
 };
