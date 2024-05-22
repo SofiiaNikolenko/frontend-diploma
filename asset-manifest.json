@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/frontend-diploma/static/css/main.c74b7494.css",
-    "main.js": "/frontend-diploma/static/js/main.f57ab96d.js",
-    "static/js/554.5d3b17fa.chunk.js": "/frontend-diploma/static/js/554.5d3b17fa.chunk.js",
+    "main.js": "/frontend-diploma/static/js/main.3a8b349a.js",
+    "static/js/554.69592c37.chunk.js": "/frontend-diploma/static/js/554.69592c37.chunk.js",
     "static/js/308.47964777.chunk.js": "/frontend-diploma/static/js/308.47964777.chunk.js",
     "static/js/638.136509f3.chunk.js": "/frontend-diploma/static/js/638.136509f3.chunk.js",
-    "static/js/699.07eec037.chunk.js": "/frontend-diploma/static/js/699.07eec037.chunk.js",
+    "static/js/605.a95bacd0.chunk.js": "/frontend-diploma/static/js/605.a95bacd0.chunk.js",
     "static/css/983.e1b751b0.chunk.css": "/frontend-diploma/static/css/983.e1b751b0.chunk.css",
     "static/js/983.6907e881.chunk.js": "/frontend-diploma/static/js/983.6907e881.chunk.js",
     "static/css/512.edbfa9be.chunk.css": "/frontend-diploma/static/css/512.edbfa9be.chunk.css",
@@ -21,11 +21,11 @@
     "static/media/Hero-img.png": "/frontend-diploma/static/media/Hero-img.c39775a826ec767b0bbc.png",
     "index.html": "/frontend-diploma/index.html",
     "main.c74b7494.css.map": "/frontend-diploma/static/css/main.c74b7494.css.map",
-    "main.f57ab96d.js.map": "/frontend-diploma/static/js/main.f57ab96d.js.map",
-    "554.5d3b17fa.chunk.js.map": "/frontend-diploma/static/js/554.5d3b17fa.chunk.js.map",
+    "main.3a8b349a.js.map": "/frontend-diploma/static/js/main.3a8b349a.js.map",
+    "554.69592c37.chunk.js.map": "/frontend-diploma/static/js/554.69592c37.chunk.js.map",
     "308.47964777.chunk.js.map": "/frontend-diploma/static/js/308.47964777.chunk.js.map",
     "638.136509f3.chunk.js.map": "/frontend-diploma/static/js/638.136509f3.chunk.js.map",
-    "699.07eec037.chunk.js.map": "/frontend-diploma/static/js/699.07eec037.chunk.js.map",
+    "605.a95bacd0.chunk.js.map": "/frontend-diploma/static/js/605.a95bacd0.chunk.js.map",
     "983.e1b751b0.chunk.css.map": "/frontend-diploma/static/css/983.e1b751b0.chunk.css.map",
     "983.6907e881.chunk.js.map": "/frontend-diploma/static/js/983.6907e881.chunk.js.map",
     "512.edbfa9be.chunk.css.map": "/frontend-diploma/static/css/512.edbfa9be.chunk.css.map",
@@ -41,6 +41,6 @@
   },
   "entrypoints": [
     "static/css/main.c74b7494.css",
-    "static/js/main.f57ab96d.js"
+    "static/js/main.3a8b349a.js"
   ]
 }
