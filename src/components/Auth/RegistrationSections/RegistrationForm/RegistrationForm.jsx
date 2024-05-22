@@ -9,18 +9,18 @@ import css from './RegistrationForm.module.css';
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 24,
+      span: 48,
     },
     sm: {
-      span: 8,
+      span: 16,
     },
   },
   wrapperCol: {
     xs: {
-      span: 24,
+      span: 48,
     },
     sm: {
-      span: 16,
+      span: 32,
     },
   },
 };
@@ -28,11 +28,11 @@ const formItemLayout = {
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
-      span: 24,
+      span: 48,
       offset: 0,
     },
     sm: {
-      span: 16,
+      span: 32,
       offset: 8,
     },
   },
