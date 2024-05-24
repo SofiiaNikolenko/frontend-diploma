@@ -11,7 +11,6 @@ import {
   ContainerDiv,
   Nav,
   Button,
-  Footer,
 } from './Layout.style';
 
 const Layout = () => {
