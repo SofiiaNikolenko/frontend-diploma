@@ -9,9 +9,6 @@ export const Header = styled.header`
   top: 0;
   left: 0;
   color: black;
-  /* background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08),
-    0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08); */
 `;
 
 export const Container = styled.div`
@@ -40,8 +37,13 @@ export const ListAuthentication = styled.ul`
 `;
 
 export const Button = styled.button`
-  /* background-color: rgba(141, 211, 187, 1); */
   color: rgb(141, 211, 187);
-  /* padding: 12px 25px;
-  border-radius: 8px; */
+`;
+
+export const Footer = styled.footer`
+  background-color: rgb(141, 211, 187);
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  text-align: center;
+  margin-top: 20px;
 `;

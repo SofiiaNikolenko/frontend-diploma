@@ -5,7 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from 'components/Loader/Loader';
 
-import { Header, Container, ContainerDiv, Nav, Button } from './Layout.style';
+import {
+  Header,
+  Container,
+  ContainerDiv,
+  Nav,
+  Button,
+  Footer,
+} from './Layout.style';
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -91,6 +98,7 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </main>
+      <Footer> by Sofiia Nikolenko</Footer>
     </>
   );
 };
