@@ -98,7 +98,7 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </main>
-      <Footer> by Sofiia Nikolenko</Footer>
+      {/* <Footer> by Sofiia Nikolenko</Footer> */}
     </>
   );
 };
