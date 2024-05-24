@@ -33,16 +33,12 @@ const LoginForm = () => {
   };
 
   return (
-    <>
+    <div className={css.loginForm}>
       <ToastContainer />
       <Form
         name="normal_login"
-        className={css.loginForm}
         initialValues={{
           remember: true,
-        }}
-        style={{
-          maxWidth: 600,
         }}
         onFinish={onFinish}
       >
@@ -51,13 +47,14 @@ const LoginForm = () => {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!',
+              message: 'Невірно введено E-mail!',
             },
             {
               required: true,
-              message: 'Please input your E-mail!',
+              message: 'Будь ласка, введіть свій E-mail!',
             },
           ]}
+          className={css.loginFormItem}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -69,14 +66,15 @@ const LoginForm = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your Password!',
+              message: 'Будь ласка, введіть свій Пароль!',
             },
           ]}
+          className={css.loginFormItem}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password"
+            placeholder="Пароль"
           />
         </Form.Item>
         <Form.Item>
@@ -85,12 +83,14 @@ const LoginForm = () => {
             htmlType="submit"
             className={css.loginFormButton}
           >
-            Log in
+            Авторизація
           </Button>
-          Or <Link to="/registration"> register now! </Link>
+          <div className={css.link}>
+            Або <Link to="/registration">зареєструйтеся зараз!</Link>
+          </div>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 

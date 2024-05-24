@@ -6,3 +6,29 @@
 .loginFormButton:hover {
   background-color: rgb(185, 152, 44);
 }
+
+.loginForm {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.loginFormItem {
+  margin-bottom: 1rem;
+}
+
+.loginFormButton {
+  width: 100%;
+}
+
+.link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.link a {
+  text-decoration: underline;
+}
+

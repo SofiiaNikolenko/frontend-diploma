@@ -9,18 +9,18 @@ import css from './RegistrationForm.module.css';
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 48,
+      span: 24,
     },
     sm: {
-      span: 16,
+      span: 8,
     },
   },
   wrapperCol: {
     xs: {
-      span: 48,
+      span: 24,
     },
     sm: {
-      span: 32,
+      span: 16,
     },
   },
 };
@@ -28,11 +28,11 @@ const formItemLayout = {
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
-      span: 48,
+      span: 24,
       offset: 0,
     },
     sm: {
-      span: 32,
+      span: 16,
       offset: 8,
     },
   },
@@ -64,98 +64,100 @@ const RegistrationForm = () => {
   };
 
   return (
-    <>
+    <div className={css.container}>
       <ToastContainer />
-      <Form
-        {...formItemLayout}
-        form={form}
-        name="register"
-        onFinish={onFinish}
-        initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86',
-        }}
-        style={{
-          maxWidth: 600,
-        }}
-        scrollToFirstError
-      >
-        <Form.Item
-          name="email"
-          label="E-mail"
-          rules={[
-            {
-              type: 'email',
-              message: 'The input is not valid E-mail!',
-            },
-            {
-              required: true,
-              message: 'Please input your E-mail!',
-            },
-          ]}
+      <div className={css.formContainer}>
+        <Form
+          {...formItemLayout}
+          form={form}
+          name="register"
+          onFinish={onFinish}
+          style={{ width: '450px' }}
+          initialValues={{
+            residence: ['zhejiang', 'hangzhou', 'xihu'],
+            prefix: '86',
+          }}
+          scrollToFirstError
         >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="E-mail"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          label="Password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your password!',
-            },
-          ]}
-          hasFeedback
-        >
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            placeholder="Password"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="confirm"
-          label="Confirm Password"
-          dependencies={['password']}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: 'Please confirm your password!',
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error('The new password that you entered do not match!')
-                );
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: 'email',
+                message: 'Введено невірний E-mail!',
               },
-            }),
-          ]}
-        >
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            placeholder="Confirm password"
-          />
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className={css.registrationFormButton}
+              {
+                required: true,
+                message: 'Будь ласка, введіть свій E-mail!',
+              },
+            ]}
           >
-            Register
-          </Button>
-          If you have an account already <Link to="/login"> log in now! </Link>
-        </Form.Item>
-      </Form>
-    </>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="E-mail"
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            label="Пароль"
+            rules={[
+              {
+                required: true,
+                message: 'Будь ласка, введіть свій пароль!',
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Пароль"
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="confirm"
+            label="Підтвердіть пароль"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Будь ласка, підтвердіть свій пароль!',
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error('Новий пароль, який ви ввели, не збігається!')
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              placeholder="Підтвердіть пароль"
+            />
+          </Form.Item>
+          <Form.Item {...tailFormItemLayout}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className={css.registrationFormButton}
+            >
+              Реєстрація
+            </Button>
+            <div className={css.link}>
+              Якщо вже маєте акаунт - <Link to="/login"> авторизуйтеся!</Link>
+            </div>
+          </Form.Item>
+        </Form>
+      </div>
+    </div>
   );
 };
 

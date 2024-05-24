@@ -55,7 +55,7 @@ const User = () => {
             aria-label="user tabs"
             centered
           >
-            <Tab label="Дадавання мандрівки" {...a11yProps(0)} />
+            <Tab label="Додання мандрівки" {...a11yProps(0)} />
             <Tab label="Усі твої мандрівки" {...a11yProps(1)} />
             <Tab label="Редагування мандрівок" {...a11yProps(2)} />
           </Tabs>

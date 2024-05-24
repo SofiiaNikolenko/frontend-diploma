@@ -2,3 +2,41 @@
   background-color: rgba(141, 211, 187, 1);
   color: rgba(255, 255, 255, 1);
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.formContainer {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.registrationFormButton {
+  width: 100%;
+}
+
+.link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.link a {
+  text-decoration: underline;
+}
