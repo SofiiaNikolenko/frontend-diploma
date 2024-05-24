@@ -85,7 +85,7 @@ const Layout = () => {
                     Авторизація
                   </NavLink>
                   <NavLink to="/registration" style={navStyle}>
-                    Регістрація
+                    Реєстрація
                   </NavLink>
                 </>
               )}

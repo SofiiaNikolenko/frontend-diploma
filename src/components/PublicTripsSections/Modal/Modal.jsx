@@ -80,5 +80,10 @@ const ModalContent = styled('div')(
     background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
     border: none;
     padding: 24px;
+
+    @media (max-width: 425px) {
+      width: 90%;
+      padding: 16px;
+    }
   `
 );

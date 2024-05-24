@@ -14,6 +14,12 @@
   padding: 2rem;
 }
 
+@media (min-width: 426px) {
+  .loginForm {
+    width: 300px;
+  }
+}
+
 .loginFormItem {
   margin-bottom: 1rem;
 }
@@ -31,4 +37,3 @@
 .link a {
   text-decoration: underline;
 }
-

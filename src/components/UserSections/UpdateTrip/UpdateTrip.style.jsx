@@ -3,10 +3,14 @@ import styled from 'styled-components';
 export const UpdateDiv = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 426px) {
+    flex-direction: column;
+  }
 `;
 
 export const Form = styled.form`
-  min-width: 600px;
+  max-width: 600px;
   padding: 15px;
   border: 1px solid #8dd3bb;
   border-radius: 5px;

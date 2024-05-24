@@ -50,10 +50,13 @@ const User = () => {
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
             value={value}
             onChange={handleChange}
-            aria-label="user tabs"
-            centered
+            // aria-label="user tabs"
+            // centered
           >
             <Tab label="Додання мандрівки" {...a11yProps(0)} />
             <Tab label="Усі твої мандрівки" {...a11yProps(1)} />

@@ -72,7 +72,7 @@ const RegistrationForm = () => {
           form={form}
           name="register"
           onFinish={onFinish}
-          style={{ width: '450px' }}
+          className={css.form}
           initialValues={{
             residence: ['zhejiang', 'hangzhou', 'xihu'],
             prefix: '86',

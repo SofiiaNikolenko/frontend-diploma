@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 
 import React, { useState, useEffect } from 'react';
-import { Card, Col, Row } from 'antd';
+import { Card, Col } from 'antd';
 import {
+  Cards,
   TripDescription,
   Category,
   CategoryName,
@@ -27,25 +28,28 @@ const AllUserTrips = () => {
       .catch(error => console.error('Error fetching trips:', error));
   }, [token]);
 
-   const getRandomColor = () => {
-     const letters = '0123456789ABCDEF';
-     let color = '#';
-     for (let i = 0; i < 6; i++) {
-       color += letters[Math.floor(Math.random() * 16)];
-     }
-     return color;
-   };
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   return (
     <>
-      <Row gutter={16}>
+      <Cards>
         {trips.map(trip => (
           <Col span={8} key={trip._id}>
             <Card
-              style={{ marginBottom: '15px' }}
+              style={{ marginBottom: '15px', width: '390px' }}
               title={trip.title}
               bordered={false}
-              headStyle={{ backgroundColor: getRandomColor(), color: '#fafbfc' }}
+              headStyle={{
+                backgroundColor: getRandomColor(),
+                color: '#fafbfc',
+              }}
             >
               <TripDescription>{trip.description}</TripDescription>
               <Category>Категорії:</Category>
@@ -77,7 +81,7 @@ const AllUserTrips = () => {
             </Card>
           </Col>
         ))}
-      </Row>
+      </Cards>
     </>
   );
 };

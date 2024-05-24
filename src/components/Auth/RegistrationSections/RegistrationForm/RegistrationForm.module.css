@@ -11,19 +11,21 @@
   padding: 2rem;
 }
 
-.title {
-  text-align: center;
-  color: #333;
-  margin-bottom: 2rem;
-  font-size: 1.5rem;
-}
-
 .formContainer {
   background: white;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  min-width: 650px;
+}
+
+@media (max-width: 426px) {
+  .formContainer {
+    min-width: 300px;
+  }
+}
+
+.form {
   width: 100%;
 }
 
@@ -40,3 +42,17 @@
 .link a {
   text-decoration: underline;
 }
+
+/* @media (max-width: 425px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .formContainer {
+    padding: 0.5rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+} */

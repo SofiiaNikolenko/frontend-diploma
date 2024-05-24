@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Col, Row } from 'antd';
+import { Card, Col} from 'antd';
 import Modal from '../PublicTripsSections/Modal/Modal';
 
 import {
+  Cards,
   TripDescription,
   Category,
   CategoryName,
@@ -49,12 +50,12 @@ const AllPopularTrips = () => {
   };
 
   return (
-    <div>
-      <Row gutter={[16, 16]}>
+    <>
+      <Cards>
         {popularTrips.map(trip => (
           <Col span={8} key={trip._id}>
             <Card
-              style={{ marginBottom: '15px' }}
+              style={{ marginBottom: '15px', width: '390px' }}
               title={trip.title}
               bordered={false}
               headStyle={{
@@ -64,7 +65,7 @@ const AllPopularTrips = () => {
             >
               <TripDescription>{trip.description}</TripDescription>
               <div>
-                <Category>Categories:</Category>
+                <Category>Категорії:</Category>
                 <ul>
                   {trip.categories.map(category => (
                     <li key={category._id}>
@@ -79,7 +80,7 @@ const AllPopularTrips = () => {
                 </ul>
               </div>
               <div>
-                <h3>Photos:</h3>
+                <h3>Фотографії:</h3>
                 <PhotoList>
                   {trip.photos.map(photo => (
                     <Photo key={photo.uuid}>
@@ -100,7 +101,7 @@ const AllPopularTrips = () => {
             </Card>
           </Col>
         ))}
-      </Row>
+      </Cards>
       {selectedPhoto && (
         <Modal
           open={open}
@@ -108,7 +109,7 @@ const AllPopularTrips = () => {
           photo={selectedPhoto}
         />
       )}
-    </div>
+    </>
   );
 };
 

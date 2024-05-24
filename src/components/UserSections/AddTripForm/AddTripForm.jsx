@@ -3,6 +3,8 @@ import AddPhotos from './AddPhotos/AddPhotos';
 import { Input, Checkbox, Button } from 'antd';
 import ButtonSend from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   Form,
@@ -197,18 +199,21 @@ const AddTripForm = () => {
     })
       .then(response => response.json())
       .then(responseData => {
+        toast.success('Мандрівка успішно додано!');
         setData(initialState);
         localStorage.removeItem('data');
         setCdnUrls([]);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch(error => {
         console.error('Error:', error);
+        toast.error('Упс... Щось пішло не так!');
       });
   };
 
   return (
     <>
+      <ToastContainer></ToastContainer>
       <Form onSubmit={handleSubmit}>
         {/* Title */}
         <label htmlFor="title">Назва</label>

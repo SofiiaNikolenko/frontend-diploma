@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Col, Row, Input, Select } from 'antd';
+import { Card, Col, Input, Select } from 'antd';
 import Modal from './Modal/Modal';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
+  SearchDiv,
+  Cards,
   TripDescription,
   Category,
   CategoryName,
@@ -102,29 +104,32 @@ const AllPublicTrips = () => {
   return (
     <div>
       <ToastContainer />
-      <Input
-        placeholder="Пошук мандрівки"
-        value={searchQuery}
-        onChange={handleSearch}
-        style={{ marginBottom: '20px' }}
-      />
-      <Select
-        placeholder="Фільтр за категоріями"
-        style={{ width: '200px', marginBottom: '20px' }}
-        onChange={handleCategoryChange}
-        allowClear
-      >
-        {uniqueCategories.map(category => (
-          <Option key={category} value={category}>
-            {category}
-          </Option>
-        ))}
-      </Select>
-      <Row gutter={[16, 16]}>
+      <SearchDiv>
+        <Input
+          placeholder="Пошук мандрівки"
+          value={searchQuery}
+          onChange={handleSearch}
+          style={{ marginRight: '20px', width: '390px', height: '30px'}}
+        />
+        <Select
+          placeholder="Фільтр за категоріями"
+          style={{ width: '200px', marginBottom: '20px' }}
+          onChange={handleCategoryChange}
+          allowClear
+        >
+          {uniqueCategories.map(category => (
+            <Option key={category} value={category}>
+              {category}
+            </Option>
+          ))}
+        </Select>
+      </SearchDiv>
+      <Cards>
+        {/* <Row gutter={[16, 16]} justify="center"> */}
         {filteredTrips.map(trip => (
           <Col span={8} key={trip._id}>
             <Card
-              style={{ marginBottom: '15px' }}
+              style={{ marginBottom: '15px', width: '390px' }}
               title={trip.title}
               bordered={false}
               headStyle={{
@@ -172,7 +177,8 @@ const AllPublicTrips = () => {
             </Card>
           </Col>
         ))}
-      </Row>
+        {/* </Row> */}
+      </Cards>
       {selectedPhoto && (
         <Modal
           open={open}
