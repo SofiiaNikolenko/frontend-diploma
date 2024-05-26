@@ -13,10 +13,12 @@ export const SearchDiv = styled.div`
 export const Cards = styled.ul`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   row-gap: 16px;
 
   @media (max-width: 426px) {
     flex-direction: column;
+    flex-wrap: wrap;
   }
 `;
 

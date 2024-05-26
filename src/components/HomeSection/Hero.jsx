@@ -1,9 +1,4 @@
-import {
-  HeroSection,
-  Container,
-  TitleOne,
-  TitleTwo,
-} from './Hero.style';
+import { HeroSection, Container, TitleOne, TitleTwo } from './Hero.style';
 
 const Hero = () => {
   return (

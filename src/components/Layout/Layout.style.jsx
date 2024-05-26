@@ -39,7 +39,7 @@ export const ContainerDiv = styled.div`
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
-  @media (max-width: 425px) {
+  @media (max-width: 426px) {
     flex-direction: column;
     align-items: center;
   }
