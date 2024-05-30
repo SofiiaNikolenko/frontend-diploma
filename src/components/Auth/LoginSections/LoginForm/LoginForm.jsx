@@ -1,5 +1,5 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -67,6 +67,10 @@ const LoginForm = () => {
             {
               required: true,
               message: 'Будь ласка, введіть свій Пароль!',
+            },
+            {
+              min: 8,
+              message: 'Пароль повинен містити щонайменше 8 символів!',
             },
           ]}
           className={css.loginFormItem}

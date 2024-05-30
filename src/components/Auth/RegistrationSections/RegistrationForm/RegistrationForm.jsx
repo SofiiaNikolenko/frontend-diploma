@@ -51,7 +51,9 @@ const RegistrationForm = () => {
       .then(response => {
         form.resetFields();
         toast.success('Перевір пошту та пройди верифікацію!!');
-        navigate('/login');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       })
       .catch(error => {
         if (error.response && error.response.status === 409) {
@@ -106,6 +108,10 @@ const RegistrationForm = () => {
               {
                 required: true,
                 message: 'Будь ласка, введіть свій пароль!',
+              },
+              {
+                min: 8,
+                message: 'Пароль повинен містити щонайменше 8 символів!',
               },
             ]}
             hasFeedback
