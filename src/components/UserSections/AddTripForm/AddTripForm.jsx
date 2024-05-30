@@ -7,12 +7,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
+  FormDiv,
   Form,
   CategoriesDiv,
   PublicCheckboxDiv,
   TodoDiv,
   ChangeDiv,
   BottomDiv,
+  HintDiv,
+  HintDivItem,
+  HintSpan,
 } from './AddTripForm.style';
 
 const { TextArea } = Input;
@@ -212,7 +216,7 @@ const AddTripForm = () => {
   };
 
   return (
-    <>
+    <FormDiv>
       <ToastContainer></ToastContainer>
       <Form onSubmit={handleSubmit}>
         {/* Title */}
@@ -358,7 +362,100 @@ const AddTripForm = () => {
           Відправити
         </ButtonSend>
       </Form>
-    </>
+
+      {/* Tips for Categories and Packing */}
+      <HintDiv>
+        <HintDivItem>
+          <h4
+            style={{
+              marginBottom: '5px',
+            }}
+          >
+            Підказки для категорій
+          </h4>
+          <ul>
+            <li>
+              <HintSpan>Проживання:</HintSpan> авіаквитки, квитки на поїзд,
+              оренда автомобіля, громадський транспорт
+            </li>
+            <li>
+              <HintSpan>Проживання:</HintSpan> готелі, хостели, оренда квартир,
+              кемпінги
+            </li>
+            <li>
+              <HintSpan>Харчування:</HintSpan> ресторани, кафе, їжа на винос,
+              супермаркети
+            </li>
+            <li>
+              <HintSpan>Розваги:</HintSpan> концерти, театри, кіно, клуби
+            </li>
+            <li>
+              <HintSpan>Пам'ятки:</HintSpan> музеї, парки, історичні місця,
+              виставки
+            </li>
+            <li>
+              <HintSpan>Покупки:</HintSpan> сувеніри, місцеві ринки, торгові
+              центри
+            </li>
+            <li>
+              <HintSpan>Здоров'я та безпека:</HintSpan> лікарні, аптеки,
+              страхування
+            </li>
+          </ul>
+        </HintDivItem>
+        <HintDivItem>
+          <h4
+            style={{
+              marginBottom: '5px',
+            }}
+          >
+            Підказки для речей, які потрібно взяти
+          </h4>
+          <ul>
+            <li>
+              <HintSpan>Паспорт та інші документи:</HintSpan>
+              віза, водійські права, страхування
+            </li>
+            <li>
+              <HintSpan>Квитки:</HintSpan> авіа, поїзд, автобус
+            </li>
+            <li>
+              <HintSpan>Зарядні пристрої:</HintSpan> для телефону, ноутбука,
+              фотоапарата
+            </li>
+            <li>
+              <HintSpan>Медичні препарати:</HintSpan> особисті ліки, засоби
+              першої допомоги
+            </li>
+            <li>
+              <HintSpan>Гігієнічні засоби:</HintSpan> зубна щітка, паста,
+              шампунь, мило
+            </li>
+            <li>
+              <HintSpan>Одяг:</HintSpan> відповідно до погоди та діяльності
+            </li>
+            <li>
+              <HintSpan>Аксесуари:</HintSpan> сонцезахисні окуляри, капелюх,
+              парасолька
+            </li>
+            <li>
+              <HintSpan>Гроші:</HintSpan> готівка, кредитні картки
+            </li>
+            <li>
+              <HintSpan>Техніка:</HintSpan> телефон, ноутбук, камера, навушники
+            </li>
+            <li>
+              <HintSpan>Розважальні речі:</HintSpan> книги, ігри, музичні
+              інструменти
+            </li>
+            <li>
+              <HintSpan>Речі для комфортної подорожі: </HintSpan>
+              подушка для подорожей, маска для сну, беруші
+            </li>
+          </ul>
+        </HintDivItem>
+      </HintDiv>
+    </FormDiv>
   );
 };
 
