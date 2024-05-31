@@ -497,7 +497,7 @@ const UpdateTrip = () => {
 
                 {/* Public */}
                 <PublicCheckboxDiv>
-                  <label htmlFor="isPublic">Публачна мандрівка?</label>
+                  <label htmlFor="isPublic">Публічна мандрівка?</label>
                   <Checkbox
                     type="checkbox"
                     id="isPublic"
